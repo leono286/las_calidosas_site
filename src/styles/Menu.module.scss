@@ -1,0 +1,143 @@
+@import "mixins";
+
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin-top: 0.4rem;
+
+  .logo {
+    width: 200px
+  }
+
+  span {
+    font-family: var(--gotham-bold-font);
+    font-size: 2.8rem;
+    padding-left: 2rem;
+    position: relative;
+
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      left: 0.4rem;
+      top: 50%;
+      width: 0.4rem;
+      aspect-ratio: 1;
+      border-radius: 100px;
+      background-color: currentColor;
+
+    }
+
+  }
+
+  .separator {
+    position: absolute;
+    left: 0;
+    bottom: -1rem;
+    width: 100%;
+  }
+
+  @include bp("small") {
+    margin-top: 1.5rem;
+
+    .logo {
+      width: 25%;
+      max-width: 200px;
+    }
+
+    span {
+      font-size: 3.4rem;
+      padding-left: 2.4rem;
+
+      &::before {
+        left: 0.7rem;
+        top: 50%;
+        width: 0.5rem;
+      }
+    }
+  }
+}
+
+.scrollspy {
+  display: flex;
+  flex-wrap: nowrap;
+  list-style: none;
+  width: 100%;
+  justify-content: flex-start;
+  background-color: var(--brand-background);
+  position: sticky;
+  top: 0;
+  overflow-x: auto;
+  z-index: 2;
+}
+
+.navItem {
+  padding: 1.6rem 0.2rem;
+  margin: 0 1rem;
+  font-size: 1rem;
+  color: var(--white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--gotham-bold-font);
+  position: relative;
+}
+
+.navItem:after {
+  content:"";
+  position: absolute;
+  bottom: 12px;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background-color: var(--brand-background);
+  border-radius: 2px 2px 0 0
+}
+
+.current:after {
+  background-color: var(--brand-yellow);
+}
+
+.content {
+  padding-top: 4rem;
+
+  @include bp('small') {
+    padding-top: 8rem;
+  }
+}
+
+
+
+
+.menuCategory {
+  margin-top: 2rem;
+
+  @include bp("small") {
+    margin-top: 5rem;
+  }
+}
+
+.menuCategoryName {
+  max-width: 480px;
+  width: 100%;
+  aspect-ratio: 4.8 / 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto -0.8rem;
+
+  svg {
+    width: 100%;
+  }
+}
+
+
+.separator {
+  width: 90%;
+  height: 2px;
+  background: rgb(30, 28, 31);
+  background: linear-gradient(90deg, rgba(30, 28, 31, 0) 0%, rgba(30, 28, 31, 1) 16%, rgba(30, 28, 31, 1) 84%, rgba(30, 28, 31, 0) 100%);
+  margin: 0 auto;
+}

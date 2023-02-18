@@ -6,6 +6,7 @@
   align-items: center;
   position: relative;
   margin-top: 0.4rem;
+  margin-bottom: 0.8rem;
 
   .logo {
     width: 200px
@@ -35,7 +36,7 @@
   .separator {
     position: absolute;
     left: 0;
-    bottom: -1rem;
+    bottom: -0.8rem;
     width: 100%;
   }
 
@@ -61,50 +62,75 @@
 }
 
 .scrollspy {
-  display: flex;
-  flex-wrap: nowrap;
-  list-style: none;
+  white-space: nowrap;
   width: 100%;
-  justify-content: flex-start;
   background-color: var(--brand-background);
   position: sticky;
   top: 0;
-  overflow-x: auto;
+  overflow-x: scroll;
   z-index: 2;
+  text-align: center;
+
+  &::-webkit-scrollbar {
+    display: none;
+    scrollbar-width: none;
+  }
 }
 
 .navItem {
-  padding: 1.6rem 0.2rem;
+  padding: 1.3rem 0.2rem 1.6rem;
   margin: 0 1rem;
   font-size: 1rem;
   color: var(--white);
-  display: flex;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
   font-family: var(--gotham-bold-font);
   position: relative;
+  user-select: none;
+  background-color: var(--brand-background);
+  border: 0;
+  cursor: pointer;
+
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  @include bp("small") {
+    padding: 1.5rem 0.4rem 1.8rem;
+    font-size: 1.1rem;
+  }
 }
 
 .navItem:after {
-  content:"";
+  content: "";
   position: absolute;
   bottom: 12px;
   left: 0;
-  height: 2px;
+  height: 3px;
   width: 100%;
   background-color: var(--brand-background);
-  border-radius: 2px 2px 0 0
+  background-color: var(--brand-yellow);
+  border-radius: 3px 3px 0 0;
+  opacity: 0;
+  transition: opacity 0ms ease-out;
 }
 
 .current:after {
-  background-color: var(--brand-yellow);
+  transition-duration: 10ms;
+  opacity: 1
 }
 
 .content {
-  padding-top: 4rem;
+  padding-top: 3rem;
 
   @include bp('small') {
-    padding-top: 8rem;
+    padding-top: 5rem;
   }
 }
 

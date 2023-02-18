@@ -5,6 +5,7 @@ import { createClient } from 'contentful'
 import styles from './../styles/Menu.module.scss'
 import LogoSVG from './../assets/svg/logo.svg'
 import ScrollSpy from 'react-scrollspy'
+import { useEffect, useState } from 'react'
 
 export async function getStaticProps() {
   const client = createClient({
@@ -21,13 +22,23 @@ export async function getStaticProps() {
   }
 }
 
-const scrollspyOffset = -100
+const scrollspyOffset = -200
 
 export default function Menu({
   categories,
 }: {
   categories: TypeMenuCategory[]
 }) {
+  const [isMenuScroll, setIsMenuScroll] = useState(false)
+
+  useEffect(() => {
+    if (isMenuScroll) {
+      setTimeout(() => {
+        setIsMenuScroll(false)
+      }, 600)
+    }
+  }, [isMenuScroll])
+
   const orderedCategories = categories.sort(
     (a, b) => a.fields.order - b.fields.order,
   )
@@ -36,8 +47,15 @@ export default function Menu({
     toLowerCase(category.fields.name),
   )
 
-  const scrollToTarget = (e: React.SyntheticEvent<HTMLLIElement>) => {
+  const handleNavClick = (e: React.SyntheticEvent<HTMLElement>) => {
     const targetId = (e.target as HTMLElement).dataset['target']
+
+    setIsMenuScroll(true)
+    targetId && scrollToTarget(targetId)
+    targetId && scrollToCenterNavItem(targetId)
+  }
+
+  const scrollToTarget = (targetId: string) => {
     const targetSection = targetId && document.getElementById(targetId)
 
     if (targetSection) {
@@ -50,22 +68,57 @@ export default function Menu({
     }
   }
 
-  const onScrollspyUpdate = (e: any) => {
-    const dataTargetValue = e.id
+  function sideScroll(
+    element: Element,
+    direction: 'left' | 'right',
+    distance: number,
+    duration: number
+  ) {
+    
+    let scrollAmount = 0
+    const step = 2;
+    const speed = duration / (distance / step)
+    
+    let slideTimer = setInterval(function () {
+      if (direction == 'left') {
+        element.scrollLeft -= step
+      } else {
+        element.scrollLeft += step
+      }
+      scrollAmount += step
+      if (scrollAmount >= distance) {
+        window.clearInterval(slideTimer)
+      }
+    }, speed)
+  }
+
+  const scrollToCenterNavItem = (targetValue: string) => {
     const targetItem = document
       .querySelector('.scrollspy')
-      ?.querySelector(`[data-target=${dataTargetValue}]`)
+      ?.querySelector(`[data-target=${targetValue}]`)
 
     const parentItem = targetItem?.parentElement
-    const mainContainerWidth = document.querySelector('main')?.getBoundingClientRect().width
+
+    if (!parentItem || parentItem?.scrollWidth - parentItem?.offsetWidth < 12)
+      return
+    
+    const mainContainerWidth = document
+      .querySelector('main')
+      ?.getBoundingClientRect().width
 
     const targetRect = targetItem?.getBoundingClientRect()
-    console.log(targetRect?.width)
     if (targetItem && targetRect && mainContainerWidth && parentItem) {
-      const distance = targetRect.left + targetRect.width / 2 - mainContainerWidth / 2
-      console.log(distance)
-      parentItem.scrollLeft += distance
+      const distance =
+        targetRect.left + targetRect.width / 2 - mainContainerWidth / 2
+      const direction = distance < 0 ? 'left' : 'right'
+      sideScroll(parentItem, direction, Math.abs(distance), 80)
     }
+  }
+
+  const onScrollspyUpdate = (e: HTMLElement) => {
+    if (isMenuScroll) return
+    const dataTargetValue = e.id
+    dataTargetValue && scrollToCenterNavItem(dataTargetValue)
   }
 
   return (
@@ -77,20 +130,21 @@ export default function Menu({
       </div>
       <ScrollSpy
         items={categoriesNames}
+        componentTag='div'
         currentClassName={styles.current}
         className={styles.scrollspy + ' scrollspy'}
         offset={scrollspyOffset}
         onUpdate={onScrollspyUpdate}
       >
         {categoriesNames.map((categoryName) => (
-          <li
+          <button
             key={categoryName}
             className={styles.navItem}
             data-target={categoryName}
-            onClick={scrollToTarget}
+            onClick={handleNavClick}
           >
             {toCapitalFirstLetter(categoryName)}
-          </li>
+          </button>
         ))}
       </ScrollSpy>
       <div className={styles.content}>

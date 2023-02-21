@@ -65,6 +65,11 @@
   }
 }
 
+.hasNoDescription {
+  flex-basis: auto;
+  flex-grow: 1;
+}
+
 .menuItemDescription {
   font-family: var(--gotham-bold-font);
   font-size: 1rem;

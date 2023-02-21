@@ -1,11 +1,13 @@
 import MenuItem from '@/components/MenuItem'
 import { mapCategoryToSVG, toCapitalFirstLetter, toLowerCase } from '@/helpers'
-import { TypeMenuCategory } from '@/Types'
+import { TypeMenu, TypeMenuCategory } from '@/Types'
 import { createClient } from 'contentful'
 import styles from './../styles/Menu.module.scss'
 import LogoSVG from './../assets/svg/logo.svg'
 import ScrollSpy from 'react-scrollspy'
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+
 
 export async function getStaticProps() {
   const client = createClient({
@@ -13,12 +15,14 @@ export async function getStaticProps() {
     accessToken: process.env.CONTENTFUL_ACCESS_TOKEN!,
   })
 
-  const res = await client.getEntries<TypeMenuCategory>({
-    content_type: 'menuCategory',
+  const res = await client.getEntries<TypeMenu>({
+    content_type: 'menu',
+    include: 3,
   })
 
   return {
-    props: { categories: res.items },
+    // @ts-ignore
+    props: { categories: res.items[0].fields.categories },
   }
 }
 
@@ -31,6 +35,10 @@ export default function Menu({
 }) {
   const [isMenuScroll, setIsMenuScroll] = useState(false)
 
+  const router = useRouter()
+  const updatePrice = router.query.updatePrice as string  
+
+
   useEffect(() => {
     if (isMenuScroll) {
       setTimeout(() => {
@@ -39,13 +47,14 @@ export default function Menu({
     }
   }, [isMenuScroll])
 
-  const orderedCategories = categories.sort(
-    (a, b) => a.fields.order - b.fields.order,
-  )
+  const categoriesNames = categories.map((category) => {
+    let name = toLowerCase(category.fields.name)
+    if (name.includes(' ')) {
+      name = name.split(' ')[0]
+    }
 
-  const categoriesNames = orderedCategories.map((category) =>
-    toLowerCase(category.fields.name),
-  )
+    return name
+  })
 
   const handleNavClick = (e: React.SyntheticEvent<HTMLElement>) => {
     const targetId = (e.target as HTMLElement).dataset['target']
@@ -72,13 +81,12 @@ export default function Menu({
     element: Element,
     direction: 'left' | 'right',
     distance: number,
-    duration: number
+    duration: number,
   ) {
-    
     let scrollAmount = 0
-    const step = 2;
+    const step = 2
     const speed = duration / (distance / step)
-    
+
     let slideTimer = setInterval(function () {
       if (direction == 'left') {
         element.scrollLeft -= step
@@ -101,7 +109,7 @@ export default function Menu({
 
     if (!parentItem || parentItem?.scrollWidth - parentItem?.offsetWidth < 12)
       return
-    
+
     const mainContainerWidth = document
       .querySelector('main')
       ?.getBoundingClientRect().width
@@ -148,7 +156,7 @@ export default function Menu({
         ))}
       </ScrollSpy>
       <div className={styles.content}>
-        {orderedCategories.map((category, index) => {
+        {categories.map((category, index) => {
           const TitleSVG = mapCategoryToSVG(category.fields.name)
 
           return (
@@ -161,9 +169,9 @@ export default function Menu({
                 <h3 className={styles.menuCategoryName}>
                   {TitleSVG ? <TitleSVG /> : category.fields.name}
                 </h3>
-                {category.fields.products.map((product) => (
-                  <MenuItem key={product.sys.id} item={product} />
-                ))}
+                {category.fields.products.map((product) => {
+                  return <MenuItem key={product.sys.id} item={{...product, updatePrice}} />
+                })}
                 <div className={styles.separator} role='presentation' />
               </section>
             </>

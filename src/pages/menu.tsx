@@ -7,7 +7,7 @@ import LogoSVG from './../assets/svg/logo.svg'
 import ScrollSpy from 'react-scrollspy'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-
+import Footer from '@/components/Footer'
 
 export async function getStaticProps() {
   const client = createClient({
@@ -36,8 +36,8 @@ export default function Menu({
   const [isMenuScroll, setIsMenuScroll] = useState(false)
 
   const router = useRouter()
-  const updatePrice = router.query.updatePrice as string  
-
+  const updatePrice = router.query.updatePrice as string
+  const printMode = router.query.hasOwnProperty('printMode')
 
   useEffect(() => {
     if (isMenuScroll) {
@@ -136,28 +136,31 @@ export default function Menu({
         <span>Menú</span>
         <div className={styles.separator} role='presentation' />
       </div>
-      <ScrollSpy
-        items={categoriesNames}
-        componentTag='div'
-        currentClassName={styles.current}
-        className={styles.scrollspy + ' scrollspy'}
-        offset={scrollspyOffset}
-        onUpdate={onScrollspyUpdate}
-      >
-        {categoriesNames.map((categoryName) => (
-          <button
-            key={categoryName}
-            className={styles.navItem}
-            data-target={categoryName}
-            onClick={handleNavClick}
-          >
-            {toCapitalFirstLetter(categoryName)}
-          </button>
-        ))}
-      </ScrollSpy>
+      {printMode ? null : (
+        <ScrollSpy
+          items={categoriesNames}
+          componentTag='div'
+          currentClassName={styles.current}
+          className={styles.scrollspy + ' scrollspy'}
+          offset={scrollspyOffset}
+          onUpdate={onScrollspyUpdate}
+        >
+          {categoriesNames.map((categoryName) => (
+            <button
+              key={categoryName}
+              className={styles.navItem}
+              data-target={categoryName}
+              onClick={handleNavClick}
+            >
+              {toCapitalFirstLetter(categoryName)}
+            </button>
+          ))}
+        </ScrollSpy>
+      )}
       <div className={styles.content}>
         {categories.map((category, index) => {
           const TitleSVG = mapCategoryToSVG(category.fields.name)
+          const isLastCategory = index === categories.length - 1
 
           return (
             <>
@@ -166,18 +169,38 @@ export default function Menu({
                 key={category.sys.id}
                 id={categoriesNames[index]}
               >
-                <h3 className={styles.menuCategoryName}>
-                  {TitleSVG ? <TitleSVG /> : category.fields.name}
+                <h3
+                  className={`${styles.menuCategoryName}${
+                    !TitleSVG || printMode ? ' text' : ''
+                  }`}
+                >
+                  {TitleSVG && !printMode? (
+                    <TitleSVG />
+                  ) : (
+                    <>
+                      {category.fields.name}{' '}
+                      {category.fields.englishName ? (
+                        <small>({category.fields.englishName})</small>
+                      ) : null}
+                    </>
+                  )}
                 </h3>
                 {category.fields.products.map((product) => {
-                  return <MenuItem key={product.sys.id} item={{...product, updatePrice}} />
+                  return (
+                    <MenuItem
+                      key={product.sys.id}
+                      item={{ ...product, updatePrice }}
+                    />
+                  )
+                  return null
                 })}
-                <div className={styles.separator} role='presentation' />
+                {!isLastCategory && <div className={styles.separator} role='presentation' />}
               </section>
             </>
           )
         })}
       </div>
+      {printMode ? null : <Footer />}
     </>
   )
 }

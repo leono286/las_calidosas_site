@@ -8,6 +8,7 @@ export type TypeMenu = Contentful.Entry<TypeMenuFields>;
 
 export interface TypeMenuCategoryFields {
   name: Contentful.EntryFields.Symbol;
+  englishName?: Contentful.EntryFields.Symbol;
   products: Contentful.Entry<TypeMenuItemFields>[];
 }
 
@@ -17,7 +18,8 @@ export interface TypeMenuItemFields {
   name: Contentful.EntryFields.Symbol;
   spanishDescription?: Contentful.EntryFields.Text;
   englishDescription?: Contentful.EntryFields.Text;
-  price: Contentful.EntryFields.Integer;
+  listOfItems?: Contentful.EntryFields.Symbol[];
+  price: Contentful.EntryFields.Number;
 }
 
 export type TypeMenuItem = Contentful.Entry<TypeMenuItemFields>;

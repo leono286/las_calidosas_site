@@ -1,5 +1,6 @@
 @import "../../styles/mixins";
 
+
 .menuItem {
   display: flex;
   margin: 3.5rem 0;
@@ -11,13 +12,17 @@
     margin: 3rem 0;
   }
 
+  &[class~=no-wrap] {
+    flex-wrap: nowrap;
+  }
+
 }
 
 .menuItemName {
   font-family: var(--dorchester-display-font);
+  color: var(--brand-yellow);
   font-size: 2.2rem;
   line-height: 1.8rem;
-  color: var(--brand-yellow);
   flex: 1 0 250px;
   letter-spacing: 0.02rem;
 
@@ -26,6 +31,31 @@
     flex-basis: 150px;
     font-size: 2.4rem;
     line-height: 1.9rem;
+  }
+}
+
+.listOfItems {
+  font-family: var(--dorchester-display-font);
+  color: var(--brand-yellow);
+  font-size: 2.2rem;
+  line-height: 1.8rem;
+  display: flex;
+  justify-content: flex-start;
+  gap: 0.5rem 1.6rem;
+  flex: 1 1 100%;
+  letter-spacing: 0.02rem;
+  flex-wrap: wrap;
+
+  [class~=product] {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+
+    small {
+      font-size: 0.6em;
+      margin-top: -2px;
+    }
   }
 }
 

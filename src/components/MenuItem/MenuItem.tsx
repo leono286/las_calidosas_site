@@ -3,28 +3,49 @@ import PriceTagSVG from '@/assets/svg/white_tag.svg'
 import styles from './MenuItem.module.scss'
 
 function MenuItem({ item }: { item: TypeMenuItem & { updatePrice: string } }) {
-  const { name, spanishDescription, englishDescription, price } = item.fields
-  const { updatePrice } = item;
+  const { updatePrice, fields } = item
+  const { name, spanishDescription, englishDescription, price, listOfItems } =
+    fields
 
-
+  const isListOfItems = listOfItems?.length
   const hasDescription = spanishDescription || englishDescription
 
   const priceUpdated = updatePrice
     ? Math.ceil(price + price * parseFloat(updatePrice))
     : price
-   
+
   const priceToDisplay =
     priceUpdated < 1 ? `.${price.toString().split('.')[1]}` : priceUpdated
-  
+
   return (
-    <div className={styles.menuItem}>
-      <div
-        className={`${styles.menuItemName} ${
-          !hasDescription ? styles.hasNoDescription : ''
-        }`}
-      >
-        {name}
-      </div>
+    <div className={`${styles.menuItem} ${isListOfItems ? 'no-wrap' : ''}`}>
+      {isListOfItems ? (
+        <div className={`${styles.listOfItems}`}>
+          {listOfItems.map((item, index) => {
+            const [label, smallLabel] = item.split('(')
+
+            return (
+              <>
+                <span className='product' key={index}>
+                  {label.trim()}
+                  {smallLabel ? (
+                    <small>{` (${smallLabel.trim()}`}</small>
+                  ) : null}
+                </span>
+                {/* {index < listOfItems.length - 1 ? ' - ' : null} */}
+              </>
+            )
+          })}
+        </div>
+      ) : (
+        <div
+          className={`${styles.menuItemName} ${
+            !hasDescription ? styles.hasNoDescription : ''
+          }`}
+        >
+          {name}
+        </div>
+      )}
       <div className={styles.menuItemPrice}>
         <PriceTagSVG />
         <span>${priceToDisplay}</span>

@@ -25,15 +25,10 @@ function MenuItem({ item }: { item: TypeMenuItem & { updatePrice: string } }) {
             const [label, smallLabel] = item.split('(')
 
             return (
-              <>
-                <span className='product' key={index}>
-                  {label.trim()}
-                  {smallLabel ? (
-                    <small>{` (${smallLabel.trim()}`}</small>
-                  ) : null}
-                </span>
-                {/* {index < listOfItems.length - 1 ? ' - ' : null} */}
-              </>
+              <span className='product' key={index}>
+                {label.trim()}
+                {smallLabel ? <small>{` (${smallLabel.trim()}`}</small> : null}
+              </span>
             )
           })}
         </div>

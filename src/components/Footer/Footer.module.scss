@@ -53,11 +53,12 @@
 }
 
 .separator {
+  @include separator(80%);
+
   margin-bottom: 2rem;
 
   @include bp('small') {
     margin-bottom: 4rem;
   }
 
-  @include separator(80%);
 }

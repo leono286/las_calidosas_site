@@ -1,0 +1,29 @@
+.wrapper {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+
+  svg {
+    width: 40%;
+    animation: pulse 600ms ease-out infinite alternate;
+  }
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.03);
+  }
+}
+
+@keyframes pulse1 {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.6;
+  }
+}

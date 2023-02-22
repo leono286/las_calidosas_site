@@ -5,7 +5,7 @@ import { createClient } from 'contentful'
 import styles from './../styles/Menu.module.scss'
 import LogoSVG from './../assets/svg/logo.svg'
 import ScrollSpy from 'react-scrollspy'
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Footer from '@/components/Footer'
 
@@ -34,10 +34,15 @@ export default function Menu({
   categories: TypeMenuCategory[]
 }) {
   const [isMenuScroll, setIsMenuScroll] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
 
   const router = useRouter()
   const updatePrice = router.query.updatePrice as string
   const printMode = router.query.hasOwnProperty('printMode')
+
+  useLayoutEffect(() => {
+    setIsVisible(true)
+  }, []);
 
   useEffect(() => {
     if (isMenuScroll) {
@@ -130,7 +135,7 @@ export default function Menu({
   }
 
   return (
-    <>
+    <div className={`${styles.wrapper}${isVisible ? ' is-visible' : ''}`}>
       <div className={styles.title}>
         <LogoSVG className={styles.logo} />
         <span>Menú</span>
@@ -163,44 +168,43 @@ export default function Menu({
           const isLastCategory = index === categories.length - 1
 
           return (
-            <>
-              <section
-                className={styles.menuCategory}
-                key={category.sys.id}
-                id={categoriesNames[index]}
+            <section
+              className={styles.menuCategory}
+              key={category.sys.id}
+              id={categoriesNames[index]}
+            >
+              <h3
+                className={`${styles.menuCategoryName}${
+                  !TitleSVG || printMode ? ' text' : ''
+                }`}
               >
-                <h3
-                  className={`${styles.menuCategoryName}${
-                    !TitleSVG || printMode ? ' text' : ''
-                  }`}
-                >
-                  {TitleSVG && !printMode? (
-                    <TitleSVG />
-                  ) : (
-                    <>
-                      {category.fields.name}{' '}
-                      {category.fields.englishName ? (
-                        <small>({category.fields.englishName})</small>
-                      ) : null}
-                    </>
-                  )}
-                </h3>
-                {category.fields.products.map((product) => {
-                  return (
-                    <MenuItem
-                      key={product.sys.id}
-                      item={{ ...product, updatePrice }}
-                    />
-                  )
-                  return null
-                })}
-                {!isLastCategory && <div className={styles.separator} role='presentation' />}
-              </section>
-            </>
+                {TitleSVG && !printMode ? (
+                  <TitleSVG />
+                ) : (
+                  <>
+                    {category.fields.name}{' '}
+                    {category.fields.englishName ? (
+                      <small>({category.fields.englishName})</small>
+                    ) : null}
+                  </>
+                )}
+              </h3>
+              {category.fields.products.map((product) => {
+                return (
+                  <MenuItem
+                    key={product.sys.id}
+                    item={{ ...product, updatePrice }}
+                  />
+                )
+              })}
+              {!isLastCategory && (
+                <div className={styles.separator} role='presentation' />
+              )}
+            </section>
           )
         })}
       </div>
       {printMode ? null : <Footer />}
-    </>
+    </div>
   )
 }

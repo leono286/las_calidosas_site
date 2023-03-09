@@ -60,7 +60,10 @@ export default function App({ Component, pageProps }: AppProps) {
           property='og:description'
           content='Sabor a calle colombiana. Comida rápida colombiana en Elizabeth NJ. Sabor a calle colombiana.'
         />
-        <meta property='og:image' content='/hamburger.jpg' />
+        <meta
+          property='og:image'
+          content='http://lascalidosas.com/hamburger.jpg'
+        />
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <main

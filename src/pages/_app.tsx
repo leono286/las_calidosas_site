@@ -58,7 +58,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta property='og:title' content='Las Calidosas Burger' />
         <meta
           property='og:description'
-          content='Sabor a calle colombiana. Comida rápida colombiana en Elizabeth NJ. Sabor a calle colombiana.'
+          content='Sabor a calle colombiana. Comida rápida colombiana en Elizabeth NJ.'
         />
         <meta
           property='og:image'

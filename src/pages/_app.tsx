@@ -53,8 +53,9 @@ export default function App({ Component, pageProps }: AppProps) {
           content='colombian fast food, colombian food, fast food, comida rápida colombiana, comida colombiana, comida rápida,comida colombiana Elizabeth NJ'
         />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
-        <meta property='og:url' content='http://lascalidosas.com' />
+        <meta property='og:url' content='https://lascalidosas.com' />
         <meta property='og:type' content='website' />
+        <meta property='og:site_name' content='Las Calidosas Burger'></meta>
         <meta property='og:title' content='Las Calidosas Burger' />
         <meta
           property='og:description'
@@ -62,7 +63,16 @@ export default function App({ Component, pageProps }: AppProps) {
         />
         <meta
           property='og:image'
-          content='http://lascalidosas.com/hamburger.jpg'
+          content='https://lascalidosas.com/hamburger.jpg'
+        />
+        <meta
+          property='og:image:secure_url'
+          content='https://lascalidosas.com/hamburger.jpg'
+        />
+        <meta property='og:image:type' content='image/jpeg' />
+        <meta
+          property='og:image:alt'
+          content='Hamburger image with text "Sabor a calle colombiana"'
         />
         <link rel='icon' href='/favicon.ico' />
       </Head>

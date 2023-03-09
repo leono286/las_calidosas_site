@@ -74,7 +74,9 @@
 
 .scrollspy {
   white-space: nowrap;
-  width: 100%;
+  width: 110%;
+  margin-left: -5%;
+  padding: 0 2.5%;
   background-color: var(--brand-background);
   position: sticky;
   top: 0;
@@ -130,13 +132,13 @@
   height: 3px;
   width: 100%;
   background-color: var(--brand-background);
-  background-color: var(--brand-yellow);
   border-radius: 3px 3px 0 0;
   opacity: 0;
   transition: opacity 0ms ease-out;
 }
 
 .current:after {
+  background-color: var(--brand-yellow);
   transition-duration: 10ms;
   opacity: 1
 }

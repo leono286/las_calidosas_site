@@ -64,10 +64,10 @@ function Footer({ hideLocation, hidePhone }: { hideLocation?: boolean; hidePhone
             alt='uber eats logo'
           />
         </a>
-        {/* <a
+        <a
           href='#'
-          target='_blank'
-          rel='noopener noreferrer'
+          // target='_blank'
+          // rel='noopener noreferrer'
         >
           <Image
             src='/doordash.jpg'
@@ -75,7 +75,7 @@ function Footer({ hideLocation, hidePhone }: { hideLocation?: boolean; hidePhone
             height={80}
             alt='doordash logo'
           />
-        </a> */}
+        </a>
       </div>
     </footer>
   )

@@ -1,0 +1,30 @@
+.badge {
+  display: inline-block;
+  position: absolute;
+  width: 2.3rem;
+  color: var(--black);
+  font-size: 0.7rem;
+  letter-spacing: 0.02rem;
+  top: -20px;
+  left: -9px;
+
+  svg {
+    position: absolute;
+    width: 100%;
+    z-index: -1;
+    transform: scaleY(3);
+  }
+}
+
+.labelBox {
+  transform: rotate(-30deg) translateY(-0.35rem) translateX(0.55rem);
+}
+
+.label {
+  display: inline-block;
+}
+
+.star {
+  font-size: 0.5em;
+  vertical-align: middle;
+}

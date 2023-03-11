@@ -129,7 +129,7 @@ export default function Menu({
   }
 
   const onScrollspyUpdate = (e: HTMLElement) => {
-    if (isMenuScroll) return
+    if (isMenuScroll || !e) return
     const dataTargetValue = e.id
     dataTargetValue && scrollToCenterNavItem(dataTargetValue)
   }

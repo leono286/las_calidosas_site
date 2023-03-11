@@ -1,10 +1,11 @@
 import { TypeMenuItem } from '@/Types'
 import PriceTagSVG from '@/assets/svg/white_tag.svg'
 import styles from './MenuItem.module.scss'
+import NewBadge from '../NewBadge'
 
 function MenuItem({ item }: { item: TypeMenuItem & { updatePrice: string } }) {
   const { updatePrice, fields } = item
-  const { name, spanishDescription, englishDescription, price, listOfItems } =
+  const { name, spanishDescription, englishDescription, price, listOfItems, isNew } =
     fields
 
   const isListOfItems = listOfItems?.length
@@ -38,7 +39,8 @@ function MenuItem({ item }: { item: TypeMenuItem & { updatePrice: string } }) {
             !hasDescription ? styles.hasNoDescription : ''
           }`}
         >
-          {name}
+            {name}
+            {isNew ? <NewBadge />: null}
         </div>
       )}
       <div className={styles.menuItemPrice}>

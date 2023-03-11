@@ -24,6 +24,7 @@
   line-height: 1.8rem;
   flex: 1 0 250px;
   letter-spacing: 0.02rem;
+  position: relative;
 
   @include bp("small") {
     flex-grow: 0;

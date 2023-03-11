@@ -20,6 +20,7 @@ export interface TypeMenuItemFields {
   englishDescription?: Contentful.EntryFields.Text;
   listOfItems?: Contentful.EntryFields.Symbol[];
   price: Contentful.EntryFields.Number;
+  isNew?: Contentful.EntryFields.Boolean;
 }
 
 export type TypeMenuItem = Contentful.Entry<TypeMenuItemFields>;

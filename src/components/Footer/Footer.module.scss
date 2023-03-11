@@ -6,6 +6,10 @@
   font-family: var(--gotham-bold-font);
   text-align: center;
 
+  p {
+    margin: 2rem 0;
+  }
+
   p svg {
     vertical-align: middle;
     font-size: 1.6rem;
@@ -60,5 +64,30 @@
   @include bp('small') {
     margin-bottom: 4rem;
   }
+}
 
+.deliveryPartnersTitle {
+  font-size: 1.4rem;
+  ;
+}
+
+.deliveryPartnersBox {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  flex-wrap: wrap;
+
+  a {
+    transition: all 200ms ease-out;
+    opacity: 0.8;
+    
+    &:hover {
+    opacity: 1;
+      transform: scale(1.1);
+    }
+  }
+
+  img {
+    border-radius: 100px;
+  }
 }

@@ -4,6 +4,7 @@ import { FiInstagram } from 'react-icons/fi'
 import { MdOutlineLocationOn } from 'react-icons/md'
 import { FaWhatsapp } from 'react-icons/fa'
 import { IconType } from 'react-icons'
+import Image from 'next/image'
 
 function Footer({ hideLocation, hidePhone }: { hideLocation?: boolean; hidePhone?: boolean }) {
   return (
@@ -45,6 +46,37 @@ function Footer({ hideLocation, hidePhone }: { hideLocation?: boolean; hidePhone
           </a>
         </p>
       ) : null}
+
+      <div className={styles.separator} />
+      <p className={styles.deliveryPartnersTitle}>
+        Encuéntranos en / Find us on:
+      </p>
+      <div className={styles.deliveryPartnersBox}>
+        <a
+          href='https://www.ubereats.com/store/las-calidosas-burger/d-pMt62nTKa_mDrigbSrfg?diningMode=DELIVERY'
+          target='_blank'
+          rel='noopener noreferrer'
+        >
+          <Image
+            src='/ubereats.jpg'
+            width={80}
+            height={80}
+            alt='uber eats logo'
+          />
+        </a>
+        {/* <a
+          href='#'
+          target='_blank'
+          rel='noopener noreferrer'
+        >
+          <Image
+            src='/doordash.jpg'
+            width={80}
+            height={80}
+            alt='doordash logo'
+          />
+        </a> */}
+      </div>
     </footer>
   )
 }

@@ -65,9 +65,9 @@ function Footer({ hideLocation, hidePhone }: { hideLocation?: boolean; hidePhone
           />
         </a>
         <a
-          href='#'
-          // target='_blank'
-          // rel='noopener noreferrer'
+          href='https://www.doordash.com/store/las-calidosas-burger-elizabeth-24787739/?event_type=autocomplete&pickup=false'
+          target='_blank'
+          rel='noopener noreferrer'
         >
           <Image
             src='/doordash.jpg'

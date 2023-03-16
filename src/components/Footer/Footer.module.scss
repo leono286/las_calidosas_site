@@ -79,10 +79,8 @@
 
   a {
     transition: all 200ms ease-out;
-    opacity: 0.8;
     
     &:hover {
-    opacity: 1;
       transform: scale(1.1);
     }
   }

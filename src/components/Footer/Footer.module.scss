@@ -43,19 +43,6 @@
   gap: 2rem;
 }
 
-.socialNetwork {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-
-  [class='icon-wrapper'] {
-    padding: 0.4rem;
-    border-radius: 200px;
-    border: 1px solid currentColor;
-    line-height: 0;
-  }
-}
-
 .separator {
   @include separator(80%);
 
@@ -74,12 +61,21 @@
 .deliveryPartnersBox {
   display: flex;
   justify-content: center;
-  gap: 80px;
+  gap: 40px;
   flex-wrap: wrap;
+
+  @include bp('small') {
+    column-gap: 60px;
+  }
+
+  @include bp('medium') {
+    column-gap: 80px;
+  }
+
 
   a {
     transition: all 200ms ease-out;
-    
+
     &:hover {
       transform: scale(1.1);
     }

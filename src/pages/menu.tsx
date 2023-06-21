@@ -1,86 +1,97 @@
-import MenuItem from '@/components/MenuItem'
-import { mapCategoryToSVG, toCapitalFirstLetter, toLowerCase } from '@/helpers'
-import { TypeMenu, TypeMenuCategory } from '@/Types'
-import { createClient } from 'contentful'
-import styles from './../styles/Menu.module.scss'
-import LogoSVG from './../assets/svg/logo.svg'
-import ScrollSpy from 'react-scrollspy'
-import { useEffect, useLayoutEffect, useState } from 'react'
-import { useRouter } from 'next/router'
-import Footer from '@/components/Footer'
+import MenuItem from '@/components/MenuItem';
+import { mapCategoryToSVG, toCapitalFirstLetter, toLowerCase } from '@/helpers';
+import { TypeFooter, TypeMenu, TypeMenuCategory } from '@/Types';
+import { createClient } from 'contentful';
+import styles from './../styles/Menu.module.scss';
+import LogoSVG from './../assets/svg/logo.svg';
+import ScrollSpy from 'react-scrollspy';
+import { useEffect, useLayoutEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import Footer from '@/components/Footer';
 
 export async function getStaticProps() {
   const client = createClient({
     space: process.env.CONTENTFUL_SPACE_ID!,
     accessToken: process.env.CONTENTFUL_ACCESS_TOKEN!,
-  })
+  });
 
-  const res = await client.getEntries<TypeMenu>({
+  const menuResponse = await client.getEntries<TypeMenu>({
     content_type: 'menu',
     include: 3,
-  })
+  });
+
+  //@ts-ignore
+  const categories = menuResponse.items[0].fields.categories;
+
+  const footerResponse = await client.getEntries<TypeFooter>({
+    content_type: 'footer',
+    include: 3,
+  });
+
+  const footerProps = footerResponse.items[0];
 
   return {
-    // @ts-ignore
-    props: { categories: res.items[0].fields.categories },
-  }
+    props: { categories, footerProps },
+  };
 }
 
-const scrollspyOffset = -200
+const scrollspyOffset = -200;
 
 export default function Menu({
   categories,
+  footerProps,
 }: {
-  categories: TypeMenuCategory[]
+  categories: TypeMenuCategory[];
+  footerProps: TypeFooter;
 }) {
-  const [isMenuScroll, setIsMenuScroll] = useState(false)
-  const [isVisible, setIsVisible] = useState(false)
+  const [isMenuScroll, setIsMenuScroll] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
-  const router = useRouter()
-  const updatePrice = router.query.updatePrice as string
-  const printMode = router.query.hasOwnProperty('printMode')
+  const router = useRouter();
+  const updatePrice = router.query.updatePrice as string;
+  const printMode = router.query.hasOwnProperty('printMode');
 
   useLayoutEffect(() => {
-    setIsVisible(true)
+    setIsVisible(true);
   }, []);
 
   useEffect(() => {
     if (isMenuScroll) {
       setTimeout(() => {
-        setIsMenuScroll(false)
-      }, 600)
+        setIsMenuScroll(false);
+      }, 600);
     }
-  }, [isMenuScroll])
+  }, [isMenuScroll]);
 
   const categoriesNames = categories.map((category) => {
-    let name = toLowerCase(category.fields.name)
+    let name = toLowerCase(category.fields.name);
     if (name.includes(' ')) {
-      name = name.split(' ')[0]
+      name = name.split(' ')[0];
     }
 
-    return name
-  })
+    return name;
+  });
 
   const handleNavClick = (e: React.SyntheticEvent<HTMLElement>) => {
-    const targetId = (e.target as HTMLElement).dataset['target']
+    const targetId = (e.target as HTMLElement).dataset['target'];
 
-    setIsMenuScroll(true)
-    targetId && scrollToTarget(targetId)
-    targetId && scrollToCenterNavItem(targetId)
-  }
+    setIsMenuScroll(true);
+    targetId && scrollToTarget(targetId);
+    targetId && scrollToCenterNavItem(targetId);
+  };
 
   const scrollToTarget = (targetId: string) => {
-    const targetSection = targetId && document.getElementById(targetId)
+    const targetSection = targetId && document.getElementById(targetId);
 
     if (targetSection) {
       const y =
         targetSection.getBoundingClientRect().top +
         window.pageYOffset +
-        scrollspyOffset
+        scrollspyOffset;
 
-      window.scrollTo({ top: y, behavior: 'smooth' })
+      window.scrollTo({ top: y, behavior: 'smooth' });
     }
-  }
+  };
 
   function sideScroll(
     element: Element,
@@ -88,58 +99,61 @@ export default function Menu({
     distance: number,
     duration: number,
   ) {
-    let scrollAmount = 0
-    const step = 2
-    const speed = duration / (distance / step)
+    let scrollAmount = 0;
+    const step = 2;
+    const speed = duration / (distance / step);
 
     let slideTimer = setInterval(function () {
       if (direction == 'left') {
-        element.scrollLeft -= step
+        element.scrollLeft -= step;
       } else {
-        element.scrollLeft += step
+        element.scrollLeft += step;
       }
-      scrollAmount += step
+      scrollAmount += step;
       if (scrollAmount >= distance) {
-        window.clearInterval(slideTimer)
+        window.clearInterval(slideTimer);
       }
-    }, speed)
+    }, speed);
   }
 
   const scrollToCenterNavItem = (targetValue: string) => {
     const targetItem = document
       .querySelector('.scrollspy')
-      ?.querySelector(`[data-target=${targetValue}]`)
+      ?.querySelector(`[data-target=${targetValue}]`);
 
-    const parentItem = targetItem?.parentElement
+    const parentItem = targetItem?.parentElement;
 
     if (!parentItem || parentItem?.scrollWidth - parentItem?.offsetWidth < 12)
-      return
+      return;
 
     const mainContainerWidth = document
       .querySelector('main')
-      ?.getBoundingClientRect().width
+      ?.getBoundingClientRect().width;
 
-    const targetRect = targetItem?.getBoundingClientRect()
+    const targetRect = targetItem?.getBoundingClientRect();
     if (targetItem && targetRect && mainContainerWidth && parentItem) {
       const distance =
-        targetRect.left + targetRect.width / 2 - mainContainerWidth / 2
-      const direction = distance < 0 ? 'left' : 'right'
-      sideScroll(parentItem, direction, Math.abs(distance), 80)
+        targetRect.left + targetRect.width / 2 - mainContainerWidth / 2;
+      const direction = distance < 0 ? 'left' : 'right';
+      sideScroll(parentItem, direction, Math.abs(distance), 80);
     }
-  }
+  };
 
   const onScrollspyUpdate = (e: HTMLElement) => {
-    if (isMenuScroll || !e) return
-    const dataTargetValue = e.id
-    dataTargetValue && scrollToCenterNavItem(dataTargetValue)
-  }
+    if (isMenuScroll || !e) return;
+    const dataTargetValue = e.id;
+    dataTargetValue && scrollToCenterNavItem(dataTargetValue);
+  };
 
   return (
     <div className={`${styles.wrapper}${isVisible ? ' is-visible' : ''}`}>
       <div className={styles.title}>
         <LogoSVG className={styles.logo} />
         <span>Menú</span>
-        <div className={styles.separator} role='presentation' />
+        <div
+          className={styles.separator}
+          role='presentation'
+        />
       </div>
       {printMode ? null : (
         <ScrollSpy
@@ -164,8 +178,8 @@ export default function Menu({
       )}
       <div className={styles.content}>
         {categories.map((category, index) => {
-          const TitleSVG = mapCategoryToSVG(category.fields.name)
-          const isLastCategory = index === categories.length - 1
+          const TitleSVG = mapCategoryToSVG(category.fields.name);
+          const isLastCategory = index === categories.length - 1;
 
           return (
             <section
@@ -195,16 +209,19 @@ export default function Menu({
                     key={product.sys.id}
                     item={{ ...product, updatePrice }}
                   />
-                )
+                );
               })}
               {!isLastCategory && (
-                <div className={styles.separator} role='presentation' />
+                <div
+                  className={styles.separator}
+                  role='presentation'
+                />
               )}
             </section>
-          )
+          );
         })}
       </div>
-      {printMode ? null : <Footer />}
+      {printMode ? null : <Footer {...footerProps} />}
     </div>
-  )
+  );
 }

@@ -1,26 +1,41 @@
-import * as Contentful from "contentful";
+import type { Asset, Entry, EntryFields } from "contentful";
+
+export interface TypeDeliveryPlatformFields {
+  name: EntryFields.Symbol;
+  url: EntryFields.Symbol;
+  logo: Asset;
+}
+
+export type TypeDeliveryPlatform = Entry<TypeDeliveryPlatformFields>;
+
+export interface TypeFooterFields {
+  name?: EntryFields.Symbol;
+  deliveryPlatformsList?: Entry<TypeDeliveryPlatformFields>[];
+}
+
+export type TypeFooter = Entry<TypeFooterFields>;
 
 export interface TypeMenuFields {
-  categories: Contentful.Entry<TypeMenuCategoryFields>[];
+  categories: Entry<TypeMenuCategoryFields>[];
 }
 
-export type TypeMenu = Contentful.Entry<TypeMenuFields>;
+export type TypeMenu = Entry<TypeMenuFields>;
 
 export interface TypeMenuCategoryFields {
-  name: Contentful.EntryFields.Symbol;
-  englishName?: Contentful.EntryFields.Symbol;
-  products: Contentful.Entry<TypeMenuItemFields>[];
+  name: EntryFields.Symbol;
+  englishName?: EntryFields.Symbol;
+  products: Entry<TypeMenuItemFields>[];
 }
 
-export type TypeMenuCategory = Contentful.Entry<TypeMenuCategoryFields>;
+export type TypeMenuCategory = Entry<TypeMenuCategoryFields>;
 
 export interface TypeMenuItemFields {
-  name: Contentful.EntryFields.Symbol;
-  spanishDescription?: Contentful.EntryFields.Text;
-  englishDescription?: Contentful.EntryFields.Text;
-  listOfItems?: Contentful.EntryFields.Symbol[];
-  price: Contentful.EntryFields.Number;
-  isNew?: Contentful.EntryFields.Boolean;
+  name: EntryFields.Symbol;
+  spanishDescription?: EntryFields.Text;
+  englishDescription?: EntryFields.Text;
+  listOfItems?: EntryFields.Symbol[];
+  price: EntryFields.Number;
+  isNew?: EntryFields.Boolean;
 }
 
-export type TypeMenuItem = Contentful.Entry<TypeMenuItemFields>;
+export type TypeMenuItem = Entry<TypeMenuItemFields>;

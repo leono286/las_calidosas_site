@@ -1,0 +1,35 @@
+{
+  "name": "Las Calidosas Menu",
+  "description": "Las calidosas burger website",
+  "keywords": "colombian fast food, colombian food, fast food, comida rápida colombiana, comida colombiana, comida rápida,comida colombiana Elizabeth NJ",
+  "short_name": "LasCalidosasMenu",
+  "theme_color": "#111011",
+  "background_color": "#111011",
+  "orientation": "portrait-primary",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "images/pwa-64x64.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "images/pwa-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "images/pwa-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "images/maskable-icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

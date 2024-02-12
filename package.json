@@ -7,7 +7,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate-pwa-assets": "pwa-assets-generator --preset minimal  public/images/burger-logo.svg"
   },
   "dependencies": {
     "@next/font": "^13.1.6",
@@ -27,6 +28,8 @@
   },
   "devDependencies": {
     "@types/react-scrollspy": "^3.3.5",
+    "@vite-pwa/assets-generator": "^0.2.4",
+    "next-pwa": "^5.6.0",
     "sass": "^1.58.1"
   }
 }

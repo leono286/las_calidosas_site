@@ -5,7 +5,7 @@ import { createClient } from 'contentful';
 import styles from './../styles/Menu.module.scss';
 import LogoSVG from './../assets/svg/logo.svg';
 import ScrollSpy from 'react-scrollspy';
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import Footer from '@/components/Footer';
 
@@ -46,10 +46,27 @@ export default function Menu({
 }) {
   const [isMenuScroll, setIsMenuScroll] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const PWAHandlerFlag = useRef(false);
 
   const router = useRouter();
   const updatePrice = router.query.updatePrice as string;
   const printMode = router.query.hasOwnProperty('printMode');
+
+  useEffect(() => {
+    const isPWAStandalone = window.matchMedia(
+      '(display-mode: standalone)',
+    ).matches;
+
+    if (isPWAStandalone && !PWAHandlerFlag.current) {
+      history.pushState(null, '', location.href); // Push new history entry to stack
+      history.back(); // Back to pevious page
+      history.forward(); // Forward to next page
+      window.addEventListener('popstate', () => {
+        history.go(1);
+      });
+      PWAHandlerFlag.current = true;
+    }
+  }, []);
 
   useLayoutEffect(() => {
     setIsVisible(true);
@@ -150,10 +167,7 @@ export default function Menu({
       <div className={styles.title}>
         <LogoSVG className={styles.logo} />
         <span>Menú</span>
-        <div
-          className={styles.separator}
-          role='presentation'
-        />
+        <div className={styles.separator} role='presentation' />
       </div>
       {printMode ? null : (
         <ScrollSpy
@@ -212,10 +226,7 @@ export default function Menu({
                 );
               })}
               {!isLastCategory && (
-                <div
-                  className={styles.separator}
-                  role='presentation'
-                />
+                <div className={styles.separator} role='presentation' />
               )}
             </section>
           );

@@ -3,7 +3,7 @@ import PerrosSVG from '@/assets/svg/perros.svg'
 import SalchipapasSVG from '@/assets/svg/salchipapas.svg'
 import MaicitosSVG from '@/assets/svg/maicitos.svg'
 import BebidasSVG from '@/assets/svg/bebidas.svg'
-import ChuzosSVG from '@/assets/svg/chuzos.svg'
+import OtrasDeliciasSVG from '@/assets/svg/otrasdelicias.svg'
 
 export function mapCategoryToSVG(category: string) {
   const lowercaseCategory = toLowerCase(category);
@@ -26,8 +26,8 @@ export function mapCategoryToSVG(category: string) {
     case 'bebidas':
       return BebidasSVG as SVGElement;
    
-    case 'chuzos':
-      return ChuzosSVG as SVGElement;
+    case 'otras delicias':
+      return OtrasDeliciasSVG as SVGElement;
     
     default:
       return null;

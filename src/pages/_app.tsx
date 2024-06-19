@@ -18,6 +18,10 @@ const dorchesterDisplay = localFont({
   src: './../assets/fonts/dorchesterdisplay-webfont.woff2',
   variable: '--dorchester-display-font'
 })
+const myriadpro = localFont({
+  src: './../assets/fonts/myriadpro-regular-webfont.woff2',
+  variable: '--myriadpro-font'
+})
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter()
@@ -121,7 +125,7 @@ export default function App({ Component, pageProps }: AppProps) {
         />
       </Head>
       <main
-        className={`${gothamBold.variable} ${gothamUltra.variable} ${dorchesterDisplay.variable}`}
+        className={`${gothamBold.variable} ${gothamUltra.variable} ${dorchesterDisplay.variable} ${myriadpro.variable}`}
       >
         <style>
           {printMode

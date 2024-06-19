@@ -8,6 +8,7 @@ import ScrollSpy from 'react-scrollspy';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import Footer from '@/components/Footer';
+import NewLocationAnnouncement from '@/components/NewLocationAnnouncement/NewLocationAnnouncement';
 
 export async function getStaticProps() {
   const client = createClient({
@@ -82,9 +83,6 @@ export default function Menu({
 
   const categoriesNames = categories.map((category) => {
     let name = toLowerCase(category.fields.name);
-    if (name.includes(' ')) {
-      name = name.split(' ')[0];
-    }
 
     return name;
   });
@@ -162,8 +160,12 @@ export default function Menu({
     dataTargetValue && scrollToCenterNavItem(dataTargetValue);
   };
 
+  const getCategoryIdFromName = (categoryName: string) =>
+    categoryName.includes(' ') ? categoryName.replace(/ /g, '_') : categoryName;
+
   return (
     <div className={`${styles.wrapper}${isVisible ? ' is-visible' : ''}`}>
+      <NewLocationAnnouncement />
       <div className={styles.title}>
         <LogoSVG className={styles.logo} />
         <span>Menú</span>
@@ -182,7 +184,7 @@ export default function Menu({
             <button
               key={categoryName}
               className={styles.navItem}
-              data-target={categoryName}
+              data-target={getCategoryIdFromName(categoryName)}
               onClick={handleNavClick}
             >
               {toCapitalFirstLetter(categoryName)}
@@ -199,7 +201,7 @@ export default function Menu({
             <section
               className={styles.menuCategory}
               key={category.sys.id}
-              id={categoriesNames[index]}
+              id={getCategoryIdFromName(categoriesNames[index])}
             >
               <h3
                 className={`${styles.menuCategoryName}${
@@ -225,6 +227,21 @@ export default function Menu({
                   />
                 );
               })}
+              {category.fields.name.toLowerCase() === 'salchipapas' ? (
+                <>
+                  <div className={styles.menuNote}>
+                    <div>*</div>
+                    <div>
+                      <p>
+                        Puedes escoger entre papas a la francesa o papa criolla.
+                      </p>
+                      <p>
+                        Choose between french fries or colombian yellow potato.
+                      </p>
+                    </div>
+                  </div>
+                </>
+              ) : null}
               {!isLastCategory && (
                 <div className={styles.separator} role='presentation' />
               )}

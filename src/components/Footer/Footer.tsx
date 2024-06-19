@@ -1,7 +1,7 @@
 import styles from './Footer.module.scss';
 import { ImFacebook } from 'react-icons/im';
 import { FiInstagram } from 'react-icons/fi';
-import { MdOutlineLocationOn } from 'react-icons/md';
+import { MdOutlineLocationOn, MdOutlineShoppingBag, MdRestaurant } from 'react-icons/md';
 import { FaWhatsapp } from 'react-icons/fa';
 import { TypeFooter } from '@/Types';
 import DeliveryPlatformLink from '../DeliveryPlatformLink';
@@ -28,12 +28,24 @@ function Footer(props?: TypeFooter) {
       </div>
       <p>
         <a
+          href='https://maps.app.goo.gl/jzqeCFv89ZwihHRd9'
+          target='_blank'
+          rel='noreferrer'
+        >
+          <MdOutlineLocationOn />
+          37 S Second St. Elizabeth New Jersey
+          &nbsp;( <MdRestaurant />&nbsp;-&nbsp;<MdOutlineShoppingBag />)
+        </a>
+      </p>
+      <p>
+        <a
           href='https://goo.gl/maps/SsPjhVtvM9vRK9Kd7'
           target='_blank'
           rel='noreferrer'
         >
           <MdOutlineLocationOn />
           13 Center St. Elizabeth New Jersey
+          &nbsp;( <MdOutlineShoppingBag />)
         </a>
       </p>
 

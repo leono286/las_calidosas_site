@@ -8,7 +8,7 @@ import ScrollSpy from 'react-scrollspy';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import Footer from '@/components/Footer';
-import NewLocationAnnouncement from '@/components/NewLocationAnnouncement/NewLocationAnnouncement';
+import NewLocationAnnouncement from '@/components/NewLocationAnnouncement';
 
 export async function getStaticProps() {
   const client = createClient({

@@ -1,0 +1,40 @@
+.container {
+  width: 100%;
+  height: 100lvh;
+  overflow: hidden;
+  position: fixed;
+
+  img {
+    width: 102%;
+    height: 102%;
+    object-fit: cover;
+    position: absolute;
+    inset: 0;
+  }
+}
+
+img.mainBackground {
+  object-position: 37% 70%;
+  z-index: 1;
+  opacity: 0.9;
+}
+
+.texture {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: url(../../assets/textura.png) repeat 0 10%;
+  background-size: cover;
+  opacity: 0.6;
+}
+
+.gradient {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.45) 50%, rgba(0,0,0,0.6) 100%);
+}

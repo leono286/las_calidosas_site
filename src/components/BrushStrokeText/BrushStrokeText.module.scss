@@ -1,0 +1,48 @@
+@import "../../styles/mixins";
+
+
+.container {
+  background: url('../../assets//yellow-brush-stroke.png');
+  background-size: 100% 110%;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: fit-content;
+  color: var(--dark-text);
+  margin: auto;
+  padding: 6px 16px 4px;
+
+  @include bp('small') {
+    padding-inline: 28px;
+  }
+
+  p {
+    font-family: "Helvetica";
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: -0.5px;
+    font-weight: 700;
+    display: inline-block;
+  }
+}
+
+.large {
+  font-size: 40px;
+  line-height: 46px;
+
+  @include bp('small') {
+    font-size: 60px;
+    line-height: 82px;
+  }
+
+  @include bp('large') {
+    font-size: 80px;
+    line-height: 102px;
+  }
+}
+
+.medium {
+  font-size: 20px;
+  line-height: 23px;
+}
+
+

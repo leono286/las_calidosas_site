@@ -1,0 +1,54 @@
+@import '../../styles/mixins';
+
+.container {
+  width: 100%;
+  background-color: var(--brand-yellow);
+  padding-block: 10px;
+
+  @include bp('small') {
+    padding-block: 12px;
+  }
+  @include bp('large') {
+    padding-block: 8px;
+  }
+}
+
+.item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text {
+  color: var(--dark-text);
+  font-family: 'Helvetica';
+  font-weight: 700;
+  font-style: italic;
+  font-size: 24px;
+  line-height: 28px;
+
+  @include bp('small') {
+    font-size: 32px;
+    line-height: 36px;
+  }
+
+  @include bp('large') {
+    font-size: 18px;
+    line-height: 20px;
+  }
+}
+
+.divider {
+  width: 2px;
+  height: 24px;
+  margin-inline: 24px;
+  background-color: var(--dark-text);
+
+  @include bp('small') {
+    height: 40px;
+  }
+  @include bp('large') {
+    height: 20px;
+    margin-inline: 12px;
+  }
+}

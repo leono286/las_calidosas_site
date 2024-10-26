@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import LogoGreeting from '@/components/LogoGreeting'
 import Head from 'next/head'
+import { Lato } from "@next/font/google";
 
 const gothamUltra = localFont({
   src: './../assets/fonts/gotham-ultra-webfont.woff2',
@@ -18,10 +19,14 @@ const dorchesterDisplay = localFont({
   src: './../assets/fonts/dorchesterdisplay-webfont.woff2',
   variable: '--dorchester-display-font'
 })
-const myriadpro = localFont({
-  src: './../assets/fonts/myriadpro-regular-webfont.woff2',
-  variable: '--myriadpro-font'
+const lato = Lato({
+  weight: '700',
+  subsets: ['latin'],
+  variable: '--lato-font',
+  display: 'swap',
 })
+
+
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter()
@@ -125,7 +130,7 @@ export default function App({ Component, pageProps }: AppProps) {
         />
       </Head>
       <main
-        className={`${gothamBold.variable} ${gothamUltra.variable} ${dorchesterDisplay.variable} ${myriadpro.variable}`}
+        className={`${gothamBold.variable} ${gothamUltra.variable} ${dorchesterDisplay.variable} ${lato.variable}`}
       >
         <style>
           {printMode

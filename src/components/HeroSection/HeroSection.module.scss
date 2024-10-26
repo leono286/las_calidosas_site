@@ -1,13 +1,13 @@
 @import '../../styles/mixins';
 
 .container {
-  width: 100%;
-  min-height: 100vh;
-  position: relative;
+  @include full-screen-container;
   padding-top: 1px;
 }
 
 .logo {
+  position: relative;
+  z-index: 2;
   width: 260px;
   aspect-ratio: 4.3863;
   margin: 44px auto 0;
@@ -26,6 +26,8 @@
 }
 
 .content {
+  position: relative;
+  z-index: 2;
   margin-top: 40px;
 
   @include bp('small') {
@@ -85,4 +87,14 @@
     width: 48px;
     aspect-ratio: 1;
   }
+}
+
+.blendOut {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 24%;
+  background: linear-gradient(180deg, transparent 0%, var(--content-overlay-hero) 96%);
+  z-index: 1;
 }

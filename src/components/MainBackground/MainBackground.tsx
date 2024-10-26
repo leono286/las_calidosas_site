@@ -8,7 +8,6 @@ function MainBackground() {
     <div className={styles.container}>
       <img className={styles.mainBackground} src={background.src} alt="" />
       <div className={styles.texture} />
-      <div className={styles.gradient} />
     </div>
   );
 }

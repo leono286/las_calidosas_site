@@ -1,10 +1,48 @@
 import Head from 'next/head';
 import styles from './../styles/Home.module.scss';
-import LogoSVG from './../assets/svg/logo.svg';
 import MainBackground from '@/components/MainBackground';
 import HeroSection from '@/components/HeroSection';
+import MenuPage from '@/components/MenuPage';
+import { TypeMenu, TypeFooter, TypeMenuCategory, TypeMenuFields, TypeMenuCategoryFields, TypePicturesSliderFields } from '@/Types';
+import { createClient, Entry, EntryCollection } from 'contentful';
 
-export default function Home() {
+export async function getStaticProps() {
+  const client = createClient({
+    space: process.env.CONTENTFUL_SPACE_ID!,
+    accessToken: process.env.CONTENTFUL_ACCESS_TOKEN!,
+  });
+
+  const menuResponse = await client.getEntries<TypeMenu>({
+    content_type: 'menu',
+    include: 3,
+  });
+
+
+
+  const menu = menuResponse.items[0];
+
+  const footerResponse = await client.getEntries<TypeFooter>({
+    content_type: 'footer',
+    include: 3,
+  });
+
+  const footerProps = footerResponse.items[0] as TypeFooter;
+
+  return {
+    props: { menu, footerProps },
+  };
+}
+
+export default function Home({
+  menu,
+  footerProps,
+}: {
+  // featuredMenuItemsSlider: Entry<TypePicturesSliderFields>;
+  // categories: Entry<TypeMenuCategoryFields>[];
+  menu: Entry<TypeMenu>
+  footerProps: TypeFooter;
+}) {
+
   return (
     <>
       <Head>
@@ -20,7 +58,7 @@ export default function Home() {
       <div className={styles.content}>
         <MainBackground />
         <HeroSection />
-        
+        <MenuPage menu={menu} />
       </div>
     </>
   );

@@ -1,0 +1,28 @@
+@import './../../styles/mixins';
+
+.footer {
+  display: flex;
+  flex-direction: column;
+}
+
+.locations {
+  padding-top: 48px;
+
+  .locationsTitle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .imageWrapper {
+    margin-top: 40px;
+    width: 100%;
+    aspect-ratio: 2.022;
+    position: relative;
+
+    @include bp('small') {
+      margin-top: 20px;
+    }
+  }
+}

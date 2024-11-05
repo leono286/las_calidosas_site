@@ -13,7 +13,7 @@ function HeroSection() {
 
       <div className={styles.content}>
         <BrushStrokeText
-          className='hide-on-small'
+          className='hide-on-small show-on-large'
           text='SABOR A'
           elementSize='large'
         />
@@ -23,7 +23,7 @@ function HeroSection() {
           elementSize='large'
         />
         <BrushStrokeText
-          className='hide-on-small'
+          className='hide-on-small show-on-large'
           text='CALLE'
           elementSize='large'
         />

@@ -1,0 +1,33 @@
+@import '../../styles/mixins';
+
+.container {
+  @include full-screen-container;
+  background-color: var(--content-overlay);
+}
+
+.contentWrapper {
+  position: relative;
+  z-index: 2;
+}
+
+.content {
+  width: 100%;
+  margin: 0 auto;
+  padding-bottom: 64px;
+  padding-inline: 20px;
+
+  @include bp('small') {
+    max-width: min(84%, 1200px);
+    padding-inline: 0px;
+  }
+
+  // @include bp('small') {
+  //   max-width: min(84%, 1200px);
+  //   margin-block-start: 56px;
+  // }
+
+  // @include bp('large') {
+  //   margin-block-start: 48px;
+  // }
+
+}

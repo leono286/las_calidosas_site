@@ -7,9 +7,9 @@ interface Props extends React.HTMLProps<HTMLDivElement> {
   elementSize?: 'medium' | 'large';
 }
 
-function BrushStrokeText({ color, text, elementSize = 'medium', className ,...props }: Props) {
+function BrushStrokeText({ color="yellow", text, elementSize = 'medium', className ,...props }: Props) {
   return (
-    <div className={`${styles.container} ${styles[elementSize]} ${className}`}>
+    <div className={`${styles.container} ${styles[elementSize]} ${styles[color]} ${className}`}>
       <p className={styles.text}>{text}</p>
     </div>
   );

@@ -1,4 +1,4 @@
-@import "mixins";
+@import 'mixins';
 
 :root {
   // colors
@@ -7,9 +7,9 @@
   --brand-background: #111011;
   --black: #000;
   --dark-text: #292927;
-  --ligth-text: #FAFAF9;
+  --ligth-text: #fafaf9;
   --content-overlay-hero: #1c1c1cbf;
-  --content-overlay: #1c1c1cd9;
+  --content-overlay: #1c1c1ccc;
 
   --max-width: 1100px;
   --border-radius: 12px;
@@ -58,15 +58,29 @@ a {
 
 .hide-on-small {
   display: none;
+}
 
-  @include bp(large) {
-    display: block;
+.hide-on-medium {
+  @include bp('medium') {
+    display: none;
   }
 }
 
 .hide-on-large {
-  @include bp(large) {
+  @include bp('large') {
     display: none;
+  }
+}
+
+.show-on-medium {
+  @include bp('medium') {
+    display: block;
+  }
+}
+
+.show-on-large {
+  @include bp('large') {
+    display: block;
   }
 }
 

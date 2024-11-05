@@ -101,7 +101,7 @@ $leyendBottomMarginSM: 68px;
 
     .name {
       text-transform: uppercase;
-      font-family: 'Helvetica';
+      font-family: var(--helvetica-font);
       margin-top: 6px;
       font-size: 22px;
       line-height: 24px;

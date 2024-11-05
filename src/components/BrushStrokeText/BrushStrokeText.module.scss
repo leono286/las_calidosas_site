@@ -2,7 +2,6 @@
 
 
 .container {
-  background: url('../../assets//yellow-brush-stroke.png');
   background-size: 100% 110%;
   background-repeat: no-repeat;
   background-position: center;
@@ -16,13 +15,21 @@
   }
 
   p {
-    font-family: "Helvetica";
+    font-family: var(--helvetica-font);
     text-transform: uppercase;
     text-align: center;
     letter-spacing: -0.5px;
     font-weight: 700;
     display: inline-block;
   }
+}
+
+.yellow {
+  background-image: url('../../assets/yellow-brush-stroke.png');
+}
+
+.white {
+  background-image: url('../../assets/white-brush-stroke.png');
 }
 
 .large {
@@ -41,8 +48,8 @@
 }
 
 .medium {
-  font-size: 20px;
-  line-height: 23px;
+  font-size: 40px;
+  line-height: 46px
 }
 
 

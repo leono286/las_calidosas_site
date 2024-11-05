@@ -41,7 +41,7 @@ function NewFooter({
 
         <div className={styles.locationsList}>
           {locations.map((location) => (
-            <LocationInfoItem location={location} />
+            <LocationInfoItem key={location.sys.id} location={location} />
           ))}
         </div>
       </div>

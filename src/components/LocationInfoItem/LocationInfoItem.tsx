@@ -1,6 +1,10 @@
 import { TypeLocation } from '@/Types';
 import styles from './LocationInfoItem.module.scss';
-import { MdOutlineLocationOn, MdOutlineShoppingBag, MdRestaurant } from 'react-icons/md';
+import {
+  MdOutlineLocationOn,
+  MdOutlineShoppingBag,
+  MdRestaurant,
+} from 'react-icons/md';
 import { FaCaretDown, FaCaretUp, FaWhatsapp } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
@@ -26,7 +30,7 @@ function LocationInfoItem({ location }: { location: TypeLocation }) {
 
   const addressToShow = address.split(',');
 
-  const phoneNumberForLink = phone.replace(/-/g, '').replace(/ /g, '');
+  const phoneNumberForLink = phone.replace(/-/g, '').replace(/ /g, '').replace(/[()]/g, '');
 
   useEffect(() => {
     const date = new Date(1730813421000);
@@ -69,7 +73,7 @@ function LocationInfoItem({ location }: { location: TypeLocation }) {
       </p>
       {typedOpenHours && currentDayIndex !== undefined ? (
         <div className={styles.openHours}>
-          <p onClick={() => setHoursCollapsed(!hoursCollapsed)}>
+          <div onClick={() => setHoursCollapsed(!hoursCollapsed)}>
             <strong>Hours:&nbsp;&nbsp;</strong>
             <span
               className={`${styles.todayHours} ${
@@ -84,22 +88,26 @@ function LocationInfoItem({ location }: { location: TypeLocation }) {
               }`}
             >
               <table>
-                {typedOpenHours.map((dayHours, index) => {
-                  const [day, hours] = Object.entries(dayHours)[0] as [
-                    WeekDay,
-                    string,
-                  ];
+                <tbody>
+                  {typedOpenHours.map((dayHours, index) => {
+                    const [day, hours] = Object.entries(dayHours)[0] as [
+                      WeekDay,
+                      string,
+                    ];
 
-                  return (
-                    <tr
-                      key={day}
-                      className={index === currentDayIndex ? styles.today : ''}
-                    >
-                      <td>{day}</td>
-                      <td>{hours}</td>
-                    </tr>
-                  );
-                })}
+                    return (
+                      <tr
+                        key={day}
+                        className={
+                          index === currentDayIndex ? styles.today : ''
+                        }
+                      >
+                        <td>{day}</td>
+                        <td>{hours}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
               </table>
             </div>
             {hoursCollapsed ? (
@@ -107,15 +115,11 @@ function LocationInfoItem({ location }: { location: TypeLocation }) {
                 <FaCaretDown />
               </span>
             ) : null}
-          </p>
+          </div>
         </div>
       ) : null}
       <p className={styles.mapsLink}>
-        <a
-          href={mapsLink}
-          target='_blank'
-          rel='noreferrer'
-        >
+        <a href={mapsLink} target='_blank' rel='noreferrer'>
           <MdOutlineLocationOn />
           Abrir mapa
         </a>

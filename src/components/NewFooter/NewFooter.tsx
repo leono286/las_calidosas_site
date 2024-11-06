@@ -18,19 +18,19 @@ function NewFooter({
         <div className={styles.locationsTitle}>
           <BrushStrokeText
             text='CAÉ Y PARCHAMOS'
-            elementSize='medium'
+            elementSize='special-size'
             className='hide-on-small show-on-medium'
             color='white'
           />
           <BrushStrokeText
             text='CAÉ Y'
-            elementSize='medium'
+            elementSize='special-size'
             className='hide-on-medium'
             color='white'
           />
           <BrushStrokeText
             text='PARCHAMOS'
-            elementSize='medium'
+            elementSize='special-size'
             className='hide-on-medium'
             color='white'
           />
@@ -43,6 +43,17 @@ function NewFooter({
           {locations.map((location) => (
             <LocationInfoItem key={location.sys.id} location={location} />
           ))}
+        </div>
+      </div>
+      <div className={styles.delivery}>
+        <BrushStrokeText
+          className={styles.deliveryTitle}
+          text='Ó TE LO LLEVAMOS'
+          elementSize='medium'
+          color='white'
+        />
+        <div className={styles.deliveryPlatformsList}>
+          {deliveryPlatformsList?.map((deliveryPlatform) => <DeliveryPlatformLink key={deliveryPlatform.sys.id} {...deliveryPlatform}/>)}
         </div>
       </div>
     </footer>

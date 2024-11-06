@@ -4,6 +4,8 @@ export interface TypeDeliveryPlatformFields {
     name: EntryFields.Symbol;
     url: EntryFields.Symbol;
     logo: Asset;
+    logoMd?: Asset;
+    backgroundColor: EntryFields.Symbol;
 }
 
 export type TypeDeliveryPlatform = Entry<TypeDeliveryPlatformFields>;

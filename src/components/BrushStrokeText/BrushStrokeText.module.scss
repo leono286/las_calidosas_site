@@ -1,5 +1,4 @@
-@import "../../styles/mixins";
-
+@import '../../styles/mixins';
 
 .container {
   background-size: 100% 110%;
@@ -8,7 +7,7 @@
   width: fit-content;
   color: var(--dark-text);
   margin: auto;
-  padding: 6px 16px 4px;
+  padding: 12px 16px 2px;
 
   @include bp('small') {
     padding-inline: 28px;
@@ -48,8 +47,31 @@
 }
 
 .medium {
-  font-size: 40px;
-  line-height: 46px
+  font-size: 20px;
+  line-height: 23px;
+
+   @include bp('small') {
+    font-size: 32px;
+    line-height: 38px;
+   }
+
+   @include bp('medium') {
+    font-size: 40px;
+    line-height: 46px;
+  }
 }
 
+.special-size {
+  font-size: 40px;
+  line-height: 46px;
 
+  @include bp('small') {
+    font-size: 60px;
+    line-height: 82px;
+  }
+
+  @include bp('medium') {
+    font-size: 40px;
+    line-height: 46px;
+  }
+}

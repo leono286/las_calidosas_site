@@ -4,7 +4,7 @@ import yellowBrushStroke from '@/assets/yellow-brush-stroke.png';
 interface Props extends React.HTMLProps<HTMLDivElement> {
   color?: 'yellow' | 'white';
   text: string;
-  elementSize?: 'medium' | 'large';
+  elementSize?: 'medium' | 'large'|'special-size';
 }
 
 function BrushStrokeText({ color="yellow", text, elementSize = 'medium', className ,...props }: Props) {

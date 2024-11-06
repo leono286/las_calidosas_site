@@ -3,6 +3,14 @@
 .footer {
   display: flex;
   flex-direction: column;
+
+  @include bp('medium') {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    max-width: 1170px;
+    margin-inline: auto;
+  }
 }
 
 .locations {
@@ -25,4 +33,40 @@
       margin-top: 20px;
     }
   }
+}
+
+.delivery {
+   padding-top: 48px;
+
+   .deliveryTitle {
+    @include bp('small') {
+      margin-left: 0;
+    }
+    
+    @include bp('medium') {
+      margin-left: auto;
+    }
+   }
+
+   .deliveryPlatformsList {
+    margin-top: 42px;
+    display: flex;
+    justify-content: space-around;
+    gap: 24px;
+    max-width: 520px;
+    margin-inline: auto;
+
+    @include bp('small') {
+      max-width: 780px
+    }
+    @include bp('medium') {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px 16px;
+
+      & > div:nth-child(odd) {
+        justify-self: end;
+      }
+    }
+   }
 }

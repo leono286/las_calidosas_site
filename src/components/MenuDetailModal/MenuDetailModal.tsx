@@ -34,6 +34,7 @@ function MenuDetailModal({
         <div className={styles.localNav}>
           {categories.map((category) => (
             <button
+              key={category.sys.id}
               className={
                 category.fields.name === selectedCategoryName
                   ? styles.active

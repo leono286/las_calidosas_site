@@ -18,7 +18,7 @@ function ContactUsPage({
       <PageGradient />
 
       <div className={styles.contentWrapper}>
-        <CustomMarquee text={'MOR, NO TE QUEDES CON ANTOJO'} />
+        <CustomMarquee text={'MOR, NO TE QUEDES CON EL ANTOJO'} />
 
         <div className={styles.content}>
           <NewFooter

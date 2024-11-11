@@ -49,7 +49,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      color: var(--ligth-text);
+      color: var(--light-text);
       text-transform: capitalize;
       font-size: 20px;
       line-height: 24px;
@@ -58,11 +58,6 @@
       border: 0 solid transparent;
       position: relative;
       transition: background-color 100ms ease-out;;
-
-      &:hover,
-      &:active {
-        background-color: rgba(255, 255, 255, 0.08);
-      }
 
       &::after {
         content: '';
@@ -74,11 +69,12 @@
         left: 0;
       }
 
-      .iconWrapper {
-        display: grid;
-        place-items: center;
-        width: 24px;
-        height: 24px;
+      .caretRightWrapper {
+        @extend %caretButtonWrapper;
+
+        svg {
+          fill: var(--light-text);
+        }
       }
 
       @include bp('small') {

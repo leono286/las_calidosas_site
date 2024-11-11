@@ -14,7 +14,7 @@ function ContactUsPage({
   const { locations, deliveryPlatformsList } = footerData.fields;
 
   return (
-    <div className={styles.container}>
+    <section className={styles.container}>
       <PageGradient />
 
       <div className={styles.contentWrapper}>
@@ -27,7 +27,7 @@ function ContactUsPage({
           />
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 

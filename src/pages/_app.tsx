@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import LogoGreeting from '@/components/LogoGreeting';
 import Head from 'next/head';
-import { Lato } from '@next/font/google';
+import { DM_Sans, Lato } from '@next/font/google';
 
 const lato = Lato({
   weight: ['700', '400'],
@@ -13,7 +13,12 @@ const lato = Lato({
   variable: '--lato-font',
   display: 'swap',
 });
-
+const dmSans = DM_Sans({
+  weight: ['500'],
+  subsets: ['latin'],
+  variable: '--dm-sans-font',
+  display: 'swap',
+});
 const helvetica = localFont({
   src: [
     { path: './../assets/fonts/Helvetica Neue Regular.woff2', weight: '400', style: 'normal' },
@@ -23,6 +28,10 @@ const helvetica = localFont({
   ],
   variable: '--helvetica-font',
 });
+const dorchesterDisplay = localFont({
+  src: './../assets/fonts/dorchesterdisplay-webfont.woff2',
+  variable: '--dorchester-display-font'
+})
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -95,7 +104,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name='theme-color' content='#111011' />
       </Head>
       <main
-        className={`${lato.variable} ${helvetica.variable}`}
+        className={`${lato.variable} ${helvetica.variable} ${dmSans.variable} ${dorchesterDisplay.variable}`}
       >
         <style>
           {printMode

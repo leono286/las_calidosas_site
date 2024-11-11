@@ -71,7 +71,7 @@ $leyendBottomMarginSM: 68px;
     left: $contentLeftSideMarginXS;
     right: $contentRightSideMargin;
     bottom: $leyendBottomMarginXS;
-    color: var(--ligth-text);
+    color: var(--light-text);
     text-shadow: 0px 3px 3px rgba(0, 0, 0, 0.8);
     font-weight: 700;
     color: var(--white);
@@ -88,10 +88,13 @@ $leyendBottomMarginSM: 68px;
     }
 
     .description {
-      text-transform: capitalize;
       font-size: 14px;
       line-height: 17px;
       font-family: var(--lato-font);
+
+      &::first-letter {
+        text-transform: capitalize;
+      }
 
       @include bp('small') {
         font-size: 18px;
@@ -134,7 +137,7 @@ $leyendBottomMarginSM: 68px;
     height: 8px;
     background: transparent;
     border-radius: 12px;
-    border: 1px solid var(--ligth-text);
+    border: 1px solid var(--light-text);
     margin: 0 4px;
     cursor: pointer;
 
@@ -150,7 +153,7 @@ $leyendBottomMarginSM: 68px;
     }
 
     &.active {
-      background: var(--ligth-text);
+      background: var(--light-text);
       box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.8);
     }
   }

@@ -46,7 +46,7 @@ function MenuPage({ menu }: { menu: Entry<TypeMenuFields> }) {
 
   return (
     <>
-      <div className={styles.container}>
+      <section className={styles.container}>
         <PageGradient />
 
         <div className={styles.contentWrapper}>
@@ -67,7 +67,7 @@ function MenuPage({ menu }: { menu: Entry<TypeMenuFields> }) {
                   onClick={() => handleShowMenu(category)}
                 >
                   <span>{category.fields.name}</span>
-                  <div className={styles.iconWrapper}>
+                  <div className={styles.caretRightWrapper}>
                     <CaretRight />
                   </div>
                 </button>
@@ -75,7 +75,7 @@ function MenuPage({ menu }: { menu: Entry<TypeMenuFields> }) {
             </div>
           </div>
         </div>
-      </div>
+      </section>
       <AnimatePresence>
         {showMenuDetail ? (
           <MenuDetailModal

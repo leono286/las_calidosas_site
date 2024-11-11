@@ -19,7 +19,7 @@ function NewFooter({
           <BrushStrokeText
             text='CAÉ Y PARCHAMOS'
             elementSize='special-size'
-            className='hide-on-small show-on-medium'
+            className='hide-on-xsmall show-on-medium'
             color='white'
           />
           <BrushStrokeText

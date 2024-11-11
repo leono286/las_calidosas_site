@@ -7,13 +7,13 @@ import PageGradient from '../PageGradient';
 
 function HeroSection() {
   return (
-    <div className={styles.container}>
+    <section className={styles.container}>
       <PageGradient/>
       <img className={styles.logo} src={lasCalidosasLogo.src} alt='' />
 
       <div className={styles.content}>
         <BrushStrokeText
-          className='hide-on-small show-on-large'
+          className='hide-on-xsmall show-on-large'
           text='SABOR A'
           elementSize='large'
         />
@@ -23,7 +23,7 @@ function HeroSection() {
           elementSize='large'
         />
         <BrushStrokeText
-          className='hide-on-small show-on-large'
+          className='hide-on-xsmall show-on-large'
           text='CALLE'
           elementSize='large'
         />
@@ -64,7 +64,7 @@ function HeroSection() {
         </div>
       </div>
       <div className={styles.blendOut}></div>
-    </div>
+    </section>
   );
 }
 

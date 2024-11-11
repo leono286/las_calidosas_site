@@ -7,7 +7,7 @@
   --brand-background: #1C1C1C;
   --black: #000;
   --dark-text: #292927;
-  --ligth-text: #fafaf9;
+  --light-text: #fafaf9;
   --content-overlay-hero: #1c1c1cbf;
   --content-overlay: #1c1c1ccc;
 
@@ -30,25 +30,6 @@ body {
 body {
   color: var(--white);
   background-color: var(--brand-background);
-
-  // main {
-  //   padding: 20px;
-  //   padding-bottom: 40px;
-  //   min-height: 100vh;
-  //   max-width: 1200px;
-  //   margin-left: auto;
-  //   margin-right: auto;
-
-  //   @include bp('small') {
-  //     padding: 40px;
-  //     padding-bottom: 60px;
-  //   }
-
-  //   @include bp('medium') {
-  //     padding: 40px 80px;
-  //     padding-bottom: 80px;
-  //   }
-  // }
 }
 
 a {
@@ -56,31 +37,43 @@ a {
   text-decoration: none;
 }
 
+.hide-on-xsmall {
+  display: none !important;
+}
+
 .hide-on-small {
-  display: none;
+  @include bp('small') {
+    display: none !important;
+  }
 }
 
 .hide-on-medium {
   @include bp('medium') {
-    display: none;
+    display: none !important;
   }
 }
 
 .hide-on-large {
   @include bp('large') {
-    display: none;
+    display: none !important;
+  }
+}
+
+.show-on-small {
+  @include bp('small') {
+    display: inherit !important;
   }
 }
 
 .show-on-medium {
   @include bp('medium') {
-    display: block;
+    display: inherit !important;
   }
 }
 
 .show-on-large {
   @include bp('large') {
-    display: block;
+    display: inherit !important;
   }
 }
 

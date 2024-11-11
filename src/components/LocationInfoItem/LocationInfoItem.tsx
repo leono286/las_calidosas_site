@@ -5,8 +5,7 @@ import {
   MdOutlineShoppingBag,
   MdRestaurant,
 } from 'react-icons/md';
-import { FaCaretDown, FaCaretUp, FaWhatsapp } from 'react-icons/fa';
-import { motion } from 'framer-motion';
+import { FaCaretDown, FaWhatsapp } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
 
 type WeekDay =
@@ -33,7 +32,7 @@ function LocationInfoItem({ location }: { location: TypeLocation }) {
   const phoneNumberForLink = phone.replace(/-/g, '').replace(/ /g, '').replace(/[()]/g, '');
 
   useEffect(() => {
-    const date = new Date(1730813421000);
+    const date = new Date();
 
     const currentDay = date.toLocaleDateString('en-us', {
       weekday: 'long',

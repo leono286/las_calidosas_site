@@ -31,6 +31,16 @@
   background-image: url('../../assets/white-brush-stroke.png');
 }
 
+.black {
+  background-image: url('../../assets/black-brush-stroke.png');
+  color: var(--white);
+  padding: 6px 48px 2px;
+  
+  @include bp('small') {
+    padding: 4px 64px 0;
+  }
+}
+
 .large {
   font-size: 40px;
   line-height: 46px;
@@ -50,12 +60,12 @@
   font-size: 28px;
   line-height: 32px;
 
-   @include bp('small') {
+  @include bp('small') {
     font-size: 32px;
     line-height: 38px;
-   }
+  }
 
-   @include bp('medium') {
+  @include bp('medium') {
     font-size: 40px;
     line-height: 46px;
   }

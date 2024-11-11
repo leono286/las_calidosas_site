@@ -1,134 +1,134 @@
-@import "../../styles/mixins";
+@import '../../styles/mixins';
 
 .menuItem {
-  display: flex;
-  margin: 3.5rem 0;
-  align-items: center;
-  flex-wrap: wrap;
+  margin: 16px 0 0;
+  border-bottom: 1px solid var(--white);
 
-  @include bp("small") {
-    flex-wrap: nowrap;
-    margin: 3rem 0;
+  @include bp('small') {
+    margin: 24px 0;
   }
 
-  &[class~=no-wrap] {
-    flex-wrap: nowrap;
+  @include bp('medium') {
+    margin: 16px 0;
   }
 
-}
-
-.menuItemName {
-  font-family: var(--dorchester-display-font);
-  color: var(--brand-yellow);
-  font-size: 2.2rem;
-  line-height: 1.8rem;
-  flex: 1 0 250px;
-  letter-spacing: 0.02rem;
-  position: relative;
-
-  @include bp("small") {
-    flex-grow: 0;
-    flex-basis: 150px;
-    font-size: 2.4rem;
-    line-height: 1.9rem;
-  }
-}
-
-.listOfItems {
-  font-family: var(--dorchester-display-font);
-  color: var(--brand-yellow);
-  font-size: 2.2rem;
-  line-height: 1.8rem;
-  display: flex;
-  justify-content: flex-start;
-  gap: 0.5rem 1.6rem;
-  flex: 1 1 100%;
-  letter-spacing: 0.02rem;
-  flex-wrap: wrap;
-
-  [class~=product] {
+  .firstRow,
+  .secondRow {
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-end;
-
-    small {
-      font-size: 0.6em;
-      margin-top: -2px;
-    }
-  }
-}
-
-.menuItemPrice {
-  position: relative;
-  flex: 0 0 80px;
-  height: 32px;
-  text-align: center;
-
-  svg {
-    width: 100%;
-    position: absolute;
-    inset: 0;
-    transform: scaleY(1.1);
-    margin-top: 2px;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
   }
 
-  span {
+  .secondRow {
+    margin-bottom: 16px;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .menuItemName {
+    font-family: var(--lato-font);
+    color: var(--brand-yellow);
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 24px;
     position: relative;
-    font-family: var(--gotham-ultra-font);
-    font-size: 1.4rem;
-    color: var(--black);
   }
 
-  @include bp("small") {
-    flex-basis: 101px;
-    height: 41px;
-    order: 3;
+  // .listOfItems {
+  //   font-family: var(--dorchester-display-font);
+  //   color: var(--brand-yellow);
+  //   font-size: 2.2rem;
+  //   line-height: 1.8rem;
+  //   display: flex;
+  //   justify-content: flex-start;
+  //   gap: 0.5rem 1.6rem;
+  //   flex: 1 1 100%;
+  //   letter-spacing: 0.02rem;
+  //   flex-wrap: wrap;
+
+  //   [class~=product] {
+  //     display: flex;
+  //     flex-direction: column;
+  //     justify-content: flex-start;
+  //     align-items: flex-end;
+
+  //     small {
+  //       font-size: 0.6em;
+  //       margin-top: -2px;
+  //     }
+  //   }
+  // }
+
+  .menuItemPrice {
+    position: relative;
+    flex-basis: 60px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     svg {
-      margin-top: 4px;
+      width: 100%;
+      position: absolute;
+      inset: 0;
+      height: 100%;
+      transform: scaleY(1.5);
+      transform-origin: center 40%;
     }
 
     span {
-      font-size: 2rem;
-    }
-  }
-}
-
-.hasNoDescription {
-  flex-basis: auto;
-  flex-grow: 1;
-}
-
-.menuItemDescription {
-  font-family: var(--gotham-bold-font);
-  font-size: 1rem;
-  color: var(--white);
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.9rem;
-  flex: 1 0 100%;
-
-  p {
-    line-height: 1.3rem;
-    opacity: 0.9;
-
-    &:first-child {
-      margin-top: 0.8rem;
+      position: relative;
+      font-family: var(--lato-font);
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 24px;
+      color: var(--black);
     }
   }
 
-  @include bp("small") {
-    padding: 0 2rem 0 1rem;
-    flex-shrink: 1;
+  .menuItemDescription {
+    font-family: var(--lato-font);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1 0 100%;
 
-    p:first-child {
-      margin-top: 0;
+    .spanish {
+      font-size: 16px;
+      line-height: 20px;
+      font-weight: 500;
+      color: var(--white);
+    }
+
+    .english {
+      font-size: 13px;
+      line-height: 15px;
+      font-weight: 400;
+      color: #c1c1c1;
+      font-style: italic;
+    }
+
+    @include bp('small') {
+      flex-shrink: 1;
+
+      p:first-child {
+        margin-top: 0;
+      }
     }
   }
 
-  @include bp("medium") {
-    padding-left: 1.8rem;
+  &.darkText {
+    border-color: var(--dark-text);
+
+    .menuItemName,
+    .menuItemDescription {
+      color: var(--dark-text);
+      .spanish,
+      .english {
+        color: var(--dark-text);
+      }
+    }
   }
 }

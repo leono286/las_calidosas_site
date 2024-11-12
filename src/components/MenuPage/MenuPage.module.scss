@@ -13,7 +13,6 @@
 .content {
   width: 100%;
   margin: 0 auto;
-  padding-bottom: 64px;
 
   @include bp('small') {
     max-width: min(84%, 1200px);

@@ -2,7 +2,8 @@ import styles from './NewFooter.module.scss';
 import { TypeFooterNewSiteFields } from '@/Types';
 import DeliveryPlatformLink from '../DeliveryPlatformLink';
 import BrushStrokeText from '../BrushStrokeText';
-import FrontDoorPic from '../../assets/front_door_pic.png';
+import FrontDoorPic from '../../assets/front_door_pic.jpg';
+import DelivertBagPic from '../../assets/deliveryBag.png';
 import Image from 'next/image';
 import LocationInfoItem from '../LocationInfoItem';
 
@@ -52,8 +53,18 @@ function NewFooter({
           elementSize='medium'
           color='white'
         />
-        <div className={styles.deliveryPlatformsList}>
-          {deliveryPlatformsList?.map((deliveryPlatform) => <DeliveryPlatformLink key={deliveryPlatform.sys.id} {...deliveryPlatform}/>)}
+        <div className={styles.layoutWrapper}>
+          <div className={styles.imageWrapper}>
+            <Image src={DelivertBagPic} alt='' fill />
+          </div>
+          <div className={styles.deliveryPlatformsList}>
+            {deliveryPlatformsList?.map((deliveryPlatform) => (
+              <DeliveryPlatformLink
+                key={deliveryPlatform.sys.id}
+                {...deliveryPlatform}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </footer>

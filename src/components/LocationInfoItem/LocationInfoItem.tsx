@@ -2,9 +2,9 @@ import { TypeLocation } from '@/Types';
 import styles from './LocationInfoItem.module.scss';
 import {
   MdOutlineLocationOn,
-  MdOutlineShoppingBag,
-  MdRestaurant,
 } from 'react-icons/md';
+import MenuIconSVG from '@/assets/svg/forkKnifeIcon.svg';
+import ShoppingBagSVG from '@/assets/svg/shoppingBagIcon.svg';
 import { FaCaretDown, FaWhatsapp } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
 
@@ -53,11 +53,11 @@ function LocationInfoItem({ location }: { location: TypeLocation }) {
       <p className={styles.serviceType}>
         {serviceType.length === 2 ? (
           <>
-            Para Parchar y/o LLevar <MdRestaurant /> <MdOutlineShoppingBag />
+            Para Parchar y/o LLevar <MenuIconSVG /> <ShoppingBagSVG />
           </>
         ) : (
           <>
-            Para LLevar <MdOutlineShoppingBag />
+            Para LLevar <ShoppingBagSVG />
           </>
         )}
       </p>

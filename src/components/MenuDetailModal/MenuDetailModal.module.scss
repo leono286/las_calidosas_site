@@ -170,8 +170,9 @@ $bottom-gradient-height: 160px;
       gap: 12px;
       transition: all 120ms ease-out;
       box-shadow: 0px 3px 8px 4px #00000008, 0px 20px 24px 4px #00000033;
+      color: var(--light-text);
 
-      svg {
+      svg, path {
         transition: all 120ms ease-out;
         fill: var(--light-text);
       }
@@ -212,7 +213,7 @@ $bottom-gradient-height: 160px;
         fill: var(--dark-text);
         transition-delay: 0ms;
 
-        svg {
+        svg, path {
           transition-delay: 0ms;
           fill: var(--dark-text);
         }

@@ -4,17 +4,11 @@ import MainBackground from '@/components/MainBackground';
 import HeroSection from '@/components/HeroSection';
 import MenuPage from '@/components/MenuPage';
 import {
-  TypeMenu,
-  TypeFooter,
-  TypeMenuCategory,
-  TypeMenuFields,
-  TypeMenuCategoryFields,
-  TypePicturesSliderFields,
-  TypeWebsiteFields,
   TypeWebsite,
 } from '@/Types';
 import { createClient, Entry, EntryCollection } from 'contentful';
 import ContactUsPage from '@/components/ContactUsPage';
+import NavBar from '@/components/NavBar';
 
 export async function getStaticProps() {
   const client = createClient({
@@ -27,20 +21,6 @@ export async function getStaticProps() {
     include: 6,
   });
 
-  // console.log(menuResponse.items);
-
-  // const menu = menuResponse.items[0];
-
-  // const footerResponse = await client.getEntries<TypeFooter>({
-  //   content_type: 'footer',
-  //   include: 3,
-  // });
-
-  // const footerProps = footerResponse.items[0] as TypeFooter;
-
-  // return {
-  //   props: { menu, footerProps },
-  // };
 
   return { props: websiteData.items[0] };
 }
@@ -49,9 +29,6 @@ export default function Home(props: TypeWebsite) {
 
   const {menu, footer} = props.fields;
   
-  console.log(menu);
-  
-
   return (
     <>
       <Head>
@@ -70,6 +47,7 @@ export default function Home(props: TypeWebsite) {
         {menu ? <MenuPage menu={menu} /> : null}
         {footer ? <ContactUsPage footerData={footer} /> : null}
       </div>
+      <NavBar />
     </>
   );
 }

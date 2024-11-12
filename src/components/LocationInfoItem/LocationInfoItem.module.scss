@@ -40,7 +40,8 @@
 
   svg {
     @extend %svg-style;
-    margin-left: 2px;
+    margin-left: 4px;
+    fill: var(--brand-yellow);
   }
 }
 

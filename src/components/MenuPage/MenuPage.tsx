@@ -1,15 +1,22 @@
-import { TypeMenu, TypeMenuCategoryFields, TypeMenuFields } from '@/Types';
+import { TypeMenuCategoryFields, TypeMenuFields } from '@/Types';
 import { Entry } from 'contentful';
 import FeaturedProductsSlider from '../FeaturedProductsSlider';
 import CustomMarquee from '../Marquee';
 import PageGradient from '../PageGradient';
 import styles from './MenuPage.module.scss';
 import CaretRight from '@/assets/svg/caret_right.svg';
-import { useEffect, useRef, useState } from 'react';
+import { forwardRef, useEffect, useRef, useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import MenuDetailModal from '../MenuDetailModal';
+import { NavBarItem } from '../NavBar/NavBar';
 
-function MenuPage({ menu }: { menu: Entry<TypeMenuFields> }) {
+const MenuPage = forwardRef<
+  HTMLDivElement,
+  {
+    menu: Entry<TypeMenuFields>;
+    onSlideIn: (sectionVisible: NavBarItem['label'])=>void
+  }
+>(({ menu, onSlideIn }, ref) => {
   const { categories, featuredMenuItemsSlider } = menu.fields as TypeMenuFields;
 
   const [showMenuDetail, setShowMenuDetail] = useState(false);
@@ -17,10 +24,31 @@ function MenuPage({ menu }: { menu: Entry<TypeMenuFields> }) {
     Entry<TypeMenuCategoryFields> | undefined
   >();
 
-  const bodyRef = useRef<HTMLBodyElement | null>(null);
+  const bodyRef = useRef<HTMLBodyElement>();
+  const sectionRef = useRef<HTMLDivElement|null>(null);
 
   useEffect(() => {
     bodyRef.current = document.body as HTMLBodyElement;
+
+    const observerCallback = (entries:IntersectionObserverEntry[]) => {
+      if(entries[0].isIntersecting) {
+        onSlideIn("Menú")
+      }
+    };
+
+    const observer = new IntersectionObserver(observerCallback, {
+      threshold: 0.5,
+    });
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if(sectionRef.current){
+        observer.unobserve(sectionRef.current)
+      }
+    }
   }, []);
 
   const sliderItems =
@@ -46,7 +74,17 @@ function MenuPage({ menu }: { menu: Entry<TypeMenuFields> }) {
 
   return (
     <>
-      <section className={styles.container}>
+      <section
+        className={styles.container}
+        ref={(node: HTMLDivElement) => {
+          sectionRef.current = node;
+          if (typeof ref === 'function') {
+            ref(node);
+          } else if (ref) {
+            ref.current = node;
+          }
+        }}
+      >
         <PageGradient />
 
         <div className={styles.contentWrapper}>
@@ -88,6 +126,8 @@ function MenuPage({ menu }: { menu: Entry<TypeMenuFields> }) {
       </AnimatePresence>
     </>
   );
-}
+});
 
 export default MenuPage;
+
+MenuPage.displayName = "MenuPage";

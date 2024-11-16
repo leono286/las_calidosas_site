@@ -12,6 +12,7 @@ $leyendBottomMarginSM: 68px;
   aspect-ratio: 1.71;
   position: relative;
   overflow: hidden;
+  border-radius: 5px;
 
   @include bp('medium') {
     aspect-ratio: 2.54;

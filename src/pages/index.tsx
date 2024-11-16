@@ -3,12 +3,12 @@ import styles from './../styles/Home.module.scss';
 import MainBackground from '@/components/MainBackground';
 import HeroSection from '@/components/HeroSection';
 import MenuPage from '@/components/MenuPage';
-import {
-  TypeWebsite,
-} from '@/Types';
+import { TypeWebsite } from '@/Types';
 import { createClient, Entry, EntryCollection } from 'contentful';
 import ContactUsPage from '@/components/ContactUsPage';
 import NavBar from '@/components/NavBar';
+import { useRef, useState } from 'react';
+import { NavBarItem } from '@/components/NavBar/NavBar';
 
 export async function getStaticProps() {
   const client = createClient({
@@ -21,14 +21,39 @@ export async function getStaticProps() {
     include: 6,
   });
 
-
   return { props: websiteData.items[0] };
 }
 
 export default function Home(props: TypeWebsite) {
+  const { menu, footer } = props.fields;
+  const heroPageRef = useRef<HTMLDivElement>(null);
+  const menuPageRef = useRef<HTMLDivElement>(null);
+  const contactUsPageRef = useRef<HTMLDivElement>(null);
+  const [activeSection, setActiveSection] = useState<NavBarItem['label']>('Inicio');
 
-  const {menu, footer} = props.fields;
-  
+  const handlNavBarItemSelected = (selectedItem: NavBarItem['label']) => {
+    let targetRef = null;
+
+    switch (selectedItem) {
+      case 'Inicio':
+        targetRef = heroPageRef;
+        break;
+      case 'Menú':
+        targetRef = menuPageRef;
+        break;
+      case 'Delivery':
+        targetRef = contactUsPageRef;
+        break;
+
+      default:
+        break;
+    }
+
+    if (targetRef?.current) {
+      targetRef.current.scrollIntoView();
+    }
+  };
+
   return (
     <>
       <Head>
@@ -43,11 +68,13 @@ export default function Home(props: TypeWebsite) {
       </Head>
       <div className={styles.content}>
         <MainBackground />
-        <HeroSection />
-        {menu ? <MenuPage menu={menu} /> : null}
-        {footer ? <ContactUsPage footerData={footer} /> : null}
+        <HeroSection ref={heroPageRef} onSlideIn={setActiveSection}/>
+        {menu ? <MenuPage menu={menu} ref={menuPageRef} onSlideIn={setActiveSection}/> : null}
+        {footer ? (
+          <ContactUsPage footerData={footer} ref={contactUsPageRef} onSlideIn={setActiveSection}/>
+        ) : null}
       </div>
-      <NavBar />
+      <NavBar activeSection={activeSection} onItemClick={handlNavBarItemSelected} />
     </>
   );
 }

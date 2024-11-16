@@ -5,16 +5,22 @@ import HomeIconSVG from '@/assets/svg/homeIcon.svg';
 import { motion } from 'framer-motion';
 import { ReactElement, useEffect, useRef, useState } from 'react';
 
-type navBarItem = { label: 'Inicio' | 'Menú' | 'Delivery'; icon: ReactElement };
+export type NavBarItem = { label: 'Inicio' | 'Menú' | 'Delivery'; icon: ReactElement };
 
-const navBarItems: navBarItem[] = [
+const navBarItems: NavBarItem[] = [
   { label: 'Inicio', icon: <HomeIconSVG /> },
   { label: 'Menú', icon: <MenuIconSVG /> },
   { label: 'Delivery', icon: <ShoppingBagSVG /> },
 ];
 
-function NavBar() {
-  const [activeLink, setActiveLink] = useState<navBarItem['label']>('Inicio');
+function NavBar({
+  activeSection,
+  onItemClick,
+}: {
+  activeSection: NavBarItem['label'],
+  onItemClick?: (item: NavBarItem['label']) => void;
+}) {
+  
   const nabVarRef = useRef<HTMLDivElement>(null);
   const [indicatorXPos, setIndicatorXPos] = useState(8);
 
@@ -36,7 +42,7 @@ function NavBar() {
 
       setIndicatorXPos(activeButtonXPos);
     }
-  }, [activeLink]);
+  }, [activeSection]);
 
   return (
     <div className={styles.navbar} ref={nabVarRef}>
@@ -44,9 +50,9 @@ function NavBar() {
         <button
           key={label}
           className={`${styles.button} ${
-            activeLink === label ? styles.active : null
+            activeSection === label ? styles.active : null
           }`}
-          onClick={() => setActiveLink(label)}
+          onClick={() => onItemClick?.(label)}
         >
           {icon}
           <span>{label}</span>
@@ -57,9 +63,9 @@ function NavBar() {
         initial={false}
         animate={{ x: indicatorXPos }}
         transition={{
-        x: { type: 'spring', bounce: 0, duration: 0.3 },
-        ease: 'easeOut',
-      }}
+          x: { type: 'spring', bounce: 0, duration: 0.2 },
+          ease: 'easeOut',
+        }}
       />
     </div>
   );

@@ -13,6 +13,8 @@ const HeroSection = forwardRef<
 >(({ onSlideIn }, ref) => {
   const sectionRef = useRef<HTMLDivElement | null>(null);
 
+  // const [rotation, setRotation] = useState<DeviceMotionEventRotationRate>(undefined);
+
   useEffect(() => {
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
       if (entries[0].isIntersecting) {
@@ -21,7 +23,7 @@ const HeroSection = forwardRef<
     };
 
     const observer = new IntersectionObserver(observerCallback, {
-      threshold: 0.5,
+      rootMargin: "-50% 0px -50% 0px"
     });
 
     if (sectionRef.current) {
@@ -33,6 +35,11 @@ const HeroSection = forwardRef<
         observer.unobserve(sectionRef.current);
       }
     };
+
+
+  // window.addEventListener("devicemotion", handleMotion, true);
+
+
   }, []);
 
   return (

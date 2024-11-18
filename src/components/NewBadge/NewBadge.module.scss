@@ -1,24 +1,38 @@
 .badge {
   display: inline-block;
+  background-size: 100% 92%;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: var(--dark-text);
+  padding: 2px 12px 0;
   position: relative;
-  width: 2.3rem;
-  color: var(--black);
   font-size: 0.7rem;
   letter-spacing: 0.04rem;
-  margin-left: 8px;
-
-  svg {
-    position: absolute;
-    width: 120%;
-    z-index: -1;
-    transform: scaleY(3);
-  }
+  margin-left: 12px;
+  background-image: url('../../assets/white-brush-stroke.png');
+  transform: translateY(-2px) rotate(3deg);
+  animation: pulse-animation 2.3s infinite;
 }
 
-.labelBox {
-  transform: rotate(-30deg) translateY(-0.35rem) translateX(0.8rem);
+.labelBox{
+  transform: rotate(-8deg);
 }
 
 .label {
-  display: inline-block;
+    font-family: var(--helvetica-font);
+    text-align: center;
+    letter-spacing: -0.5px;
+    font-weight: 700;
+    display: inline-block;
 }
+
+@keyframes pulse-animation {
+  from {
+    filter: drop-shadow(0px 0px 0px rgba(255, 255, 255, 1));
+  }
+  to {
+    filter: drop-shadow(0px 0px 30px rgba(255, 255, 255, 0));
+  }
+}
+
+

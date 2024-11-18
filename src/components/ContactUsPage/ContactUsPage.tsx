@@ -25,7 +25,7 @@ const ContactUsPage = forwardRef<
     };
 
     const observer = new IntersectionObserver(observerCallback, {
-      threshold: 0.5,
+      rootMargin: "-50% 0px -50% 0px"
     });
 
     if (sectionRef.current) {

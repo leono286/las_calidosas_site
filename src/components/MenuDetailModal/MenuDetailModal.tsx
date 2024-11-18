@@ -7,7 +7,7 @@ import MenuIconSVG from '@/assets/svg/forkKnifeIcon.svg';
 import CaretRight from '@/assets/svg/caret_right.svg';
 import styles from './MenuDetailModal.module.scss';
 import BrushStrokeText from '../BrushStrokeText';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const breakpoints = [
   // {media: "(min-width: 992px)", size: "medium"},
@@ -27,10 +27,12 @@ function MenuDetailModal({
   onCategoryChange: (selectedCategory: Entry<TypeMenuCategoryFields>) => void;
 }) {
   const contentDivRef = useRef<HTMLDivElement>(null);
-  
+
   const localNavRef = useRef<HTMLDivElement>(null);
 
   const selectedCategoryName = seletedCategory.fields.name;
+
+  const [showFeaturedSection, setShowFeaturedSection] = useState(false);
 
   const isSpecialCategory = ['adiciones', 'bebidas'].includes(
     selectedCategoryName.toLowerCase(),
@@ -38,14 +40,26 @@ function MenuDetailModal({
 
   const titleImgName = selectedCategoryName.toLowerCase().replace(/ /g, '');
 
+  const featuredVideoUrl =
+    seletedCategory.fields.videoShowcase?.fields.file.url;
+  const featuredPictureUrl =
+    seletedCategory.fields.pictureSlider?.fields.items?.[0].fields.image.fields
+      .file.url;
+
   const onAnimationCompleteHandler = (e: { x: number | string }) => {
     if (e.x === 0 && localNavRef.current) {
-      const activeElement = localNavRef.current.querySelector(`.${styles.active}`);
+      const activeElement = localNavRef.current.querySelector(
+        `.${styles.active}`,
+      );
       const activeElementRect = activeElement!.getBoundingClientRect();
-      const hiddenPixelsCount = activeElementRect.left + activeElementRect.width - window.innerWidth;
+      const hiddenPixelsCount =
+        activeElementRect.left + activeElementRect.width - window.innerWidth;
 
-      if(hiddenPixelsCount > 0) {
-        localNavRef.current.scroll({ left: hiddenPixelsCount + 40, behavior: 'auto' });
+      if (hiddenPixelsCount > 0) {
+        localNavRef.current.scroll({
+          left: hiddenPixelsCount + 40,
+          behavior: 'auto',
+        });
       }
     }
   };
@@ -56,6 +70,8 @@ function MenuDetailModal({
         contentDivRef.current!.scrollTop = 0;
       }, 10);
     }
+
+    setShowFeaturedSection(false);
   }, [seletedCategory]);
 
   return (
@@ -115,13 +131,44 @@ function MenuDetailModal({
             </picture>
           )}
         </div>
-        <div className={styles.itemsList}>
-          {seletedCategory.fields.products.map((product) => (
-            <MenuItem
-              key={product.sys.id}
-              item={{ ...product, darkText: isSpecialCategory }}
-            />
-          ))}
+        <div className={styles.contentWrapper}>
+          {featuredPictureUrl || featuredVideoUrl ? (
+            <motion.div
+              animate={{ opacity: showFeaturedSection ? 1 : 0 }}
+              initial={{ opacity: 0 }}
+              transition={{ duration: showFeaturedSection ? 0.4 : 0 }}
+              className={`${styles.featured} ${
+                featuredVideoUrl ? styles.isVideo : null
+              } ${featuredPictureUrl ? styles.isImage : null}`}
+            >
+              {featuredVideoUrl ? (
+                <video
+                  src={featuredVideoUrl}
+                  onCanPlay={(e) => {
+                    const videoElement = e.target as HTMLVideoElement;
+                    videoElement.play();
+                    setShowFeaturedSection(true);
+                  }}
+                  controls={false}
+                  loop={true}
+                  muted
+                />
+              ) : featuredPictureUrl ? (
+                <img
+                  src={featuredPictureUrl}
+                  onLoad={() => setShowFeaturedSection(true)}
+                />
+              ) : null}
+            </motion.div>
+          ) : null}
+          <div className={styles.itemsList}>
+            {seletedCategory.fields.products.map((product) => (
+              <MenuItem
+                key={product.sys.id}
+                item={{ ...product, darkText: isSpecialCategory }}
+              />
+            ))}
+          </div>
         </div>
       </div>
       <div className={styles.buttonGradient}>

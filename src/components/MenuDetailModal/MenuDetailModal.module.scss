@@ -99,7 +99,6 @@ $bottom-gradient-height: 160px;
     width: 100%;
     margin: 0 auto;
     padding-inline: 20px;
-    padding-bottom: $bottom-gradient-height;
 
     position: relative;
     flex-grow: 1;
@@ -113,6 +112,16 @@ $bottom-gradient-height: 160px;
         32px,
         calc((100% - 1200px) / 2)
       ); //TODDO: THis is not required when we add the slider. REMOVE
+    }
+  }
+
+  .contentWrapper {
+    display: flex;
+    flex-direction: column;
+
+    @include bp('medium') {
+      flex-direction: row;
+      gap: 32px;
     }
   }
 
@@ -133,6 +142,55 @@ $bottom-gradient-height: 160px;
         max-height: 124px;
       }
     }
+  }
+
+  .featured {
+    width: 100%;
+    aspect-ratio: 1.714;
+    border-radius: 5px;
+    opacity: 0;
+    margin-top: 20px;
+    overflow: hidden;
+
+    @include bp('medium') {
+      overflow: unset;
+      aspect-ratio: 0.866;
+      flex-basis: 42%;
+      flex-shrink: 0;
+    }
+
+    &.isVideo {
+      video {
+        width: 100%;
+        object-fit: cover;
+        max-width: 100%;
+        max-height: 100%;
+        object-position: center 84%;
+        border-radius: 5px;
+
+        @include bp('medium') {
+          max-height: calc(100vh - 220px);
+          position: sticky;
+          top: 20px;
+        }
+      }
+    }
+
+    &.isImage {
+      img {
+        width: 100%;
+        object-fit: cover;
+        max-width: 100%;
+        max-height: 100%;
+        object-position: center 84%;
+        border-radius: 5px;
+      }
+    }
+  }
+
+  .itemsList {
+    padding-bottom: $bottom-gradient-height;
+    flex-grow: 1;
   }
 
   .buttonGradient {
@@ -172,7 +230,8 @@ $bottom-gradient-height: 160px;
       box-shadow: 0px 3px 8px 4px #00000008, 0px 20px 24px 4px #00000033;
       color: var(--light-text);
 
-      svg, path {
+      svg,
+      path {
         transition: all 120ms ease-out;
         fill: var(--light-text);
       }
@@ -213,7 +272,8 @@ $bottom-gradient-height: 160px;
         fill: var(--dark-text);
         transition-delay: 0ms;
 
-        svg, path {
+        svg,
+        path {
           transition-delay: 0ms;
           fill: var(--dark-text);
         }

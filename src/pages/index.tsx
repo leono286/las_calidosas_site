@@ -9,6 +9,7 @@ import ContactUsPage from '@/components/ContactUsPage';
 import NavBar from '@/components/NavBar';
 import { useRef, useState } from 'react';
 import { NavBarItem } from '@/components/NavBar/NavBar';
+import { AnimatePresence, motion } from 'framer-motion';
 
 export async function getStaticProps() {
   const client = createClient({
@@ -29,7 +30,10 @@ export default function Home(props: TypeWebsite) {
   const heroPageRef = useRef<HTMLDivElement>(null);
   const menuPageRef = useRef<HTMLDivElement>(null);
   const contactUsPageRef = useRef<HTMLDivElement>(null);
-  const [activeSection, setActiveSection] = useState<NavBarItem['label']>('Inicio');
+  const [activeSection, setActiveSection] =
+    useState<NavBarItem['label']>('Inicio');
+
+  const [hideContent, setHideContent] = useState(false);
 
   const handlNavBarItemSelected = (selectedItem: NavBarItem['label']) => {
     let targetRef = null;
@@ -54,6 +58,8 @@ export default function Home(props: TypeWebsite) {
     }
   };
 
+  console.log(menu);
+
   return (
     <>
       <Head>
@@ -67,14 +73,47 @@ export default function Home(props: TypeWebsite) {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <div className={styles.content}>
-        <MainBackground />
-        <HeroSection ref={heroPageRef} onSlideIn={setActiveSection}/>
-        {menu ? <MenuPage menu={menu} ref={menuPageRef} onSlideIn={setActiveSection}/> : null}
-        {footer ? (
-          <ContactUsPage footerData={footer} ref={contactUsPageRef} onSlideIn={setActiveSection}/>
-        ) : null}
+        {/* <button
+          style={{ position: 'absolute', zIndex: 20 }}
+          onClick={() => setHideContent(!hideContent)}
+        >
+          test
+        </button> */}
+        <MainBackground hideTexture={hideContent}/>
+        <AnimatePresence>
+          {!hideContent ? (
+            <motion.div
+              // initial={false}
+              animate={{
+                opacity: hideContent ? 0 : 1,
+                y: hideContent ? '20%' : 0,
+              }}
+              exit={{ opacity: 0, y: '20%' }}
+              transition={{duration: 0.3}}
+            >
+              <HeroSection ref={heroPageRef} onSlideIn={setActiveSection} />
+              {menu ? (
+                <MenuPage
+                  menu={menu}
+                  ref={menuPageRef}
+                  onSlideIn={setActiveSection}
+                />
+              ) : null}
+              {footer ? (
+                <ContactUsPage
+                  footerData={footer}
+                  ref={contactUsPageRef}
+                  onSlideIn={setActiveSection}
+                />
+              ) : null}
+            </motion.div>
+          ) : null}
+        </AnimatePresence>
       </div>
-      <NavBar activeSection={activeSection} onItemClick={handlNavBarItemSelected} />
+      <NavBar
+        activeSection={activeSection}
+        onItemClick={handlNavBarItemSelected}
+      />
     </>
   );
 }

@@ -23,6 +23,8 @@ function NavBar({
   
   const nabVarRef = useRef<HTMLDivElement>(null);
   const [indicatorXPos, setIndicatorXPos] = useState(8);
+  const [innerActiveSection, setinnerActiveSection] = useState<NavBarItem['label']>('Inicio');
+  const [ignoreOuterUpdate, setIgnoreOuterUpdate]=useState(false);
 
   useEffect(() => {
     if (nabVarRef.current) {
@@ -42,7 +44,21 @@ function NavBar({
 
       setIndicatorXPos(activeButtonXPos);
     }
+  }, [innerActiveSection]);
+
+  useEffect(() => {
+    if(!ignoreOuterUpdate) {
+      setinnerActiveSection(activeSection)
+    } else if(activeSection === innerActiveSection) {
+      setIgnoreOuterUpdate(false)
+    }
   }, [activeSection]);
+
+  const handleItemClick = (label: NavBarItem['label']) =>  {
+    setIgnoreOuterUpdate(true);
+    setinnerActiveSection(label)
+    onItemClick?.(label);
+  }
 
   return (
     <div className={styles.navbar} ref={nabVarRef}>
@@ -50,9 +66,9 @@ function NavBar({
         <button
           key={label}
           className={`${styles.button} ${
-            activeSection === label ? styles.active : null
+            innerActiveSection === label ? styles.active : null
           }`}
-          onClick={() => onItemClick?.(label)}
+          onClick={() => handleItemClick(label)}
         >
           {icon}
           <span>{label}</span>
@@ -63,7 +79,7 @@ function NavBar({
         initial={false}
         animate={{ x: indicatorXPos }}
         transition={{
-          x: { type: 'spring', bounce: 0, duration: 0.2 },
+          x: { type: 'spring', bounce: 0, duration: 0.4 },
           ease: 'easeOut',
         }}
       />

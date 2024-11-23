@@ -7,7 +7,13 @@ import MenuIconSVG from '@/assets/svg/forkKnifeIcon.svg';
 import CaretRight from '@/assets/svg/caret_right.svg';
 import styles from './MenuDetailModal.module.scss';
 import BrushStrokeText from '../BrushStrokeText';
-import { CSSProperties, useEffect, useRef, useState } from 'react';
+import {
+  CSSProperties,
+  SyntheticEvent,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
 const breakpoints = [
   { media: '(min-width: 767px)', size: 'small' },
@@ -81,6 +87,20 @@ function MenuDetailModal({
     setShowFeaturedSection(false);
   }, [seletedCategory]);
 
+  const playVideoHandler = (
+    e: SyntheticEvent<HTMLVideoElement, Event>,
+    delayPlay = false,
+  ) => {
+    const videoElement = e.target as HTMLVideoElement;
+    setTimeout(
+      () => {
+        videoElement.play();
+        setShowFeaturedSection(true);
+      },
+      delayPlay ? 300 : 0,
+    );
+  };
+
   return (
     <motion.div
       className={`${styles.menuDetailContainer} ${
@@ -115,7 +135,11 @@ function MenuDetailModal({
         </div>
       </div>
       <div className={styles.content} ref={contentDivRef}>
-        <div className={`${styles.title} ${!isSpecialCategory ? styles.noMarginMedium : null}` }>
+        <div
+          className={`${styles.title} ${
+            !isSpecialCategory ? styles.noMarginMedium : null
+          }`}
+        >
           {isSpecialCategory ? (
             <BrushStrokeText
               text={selectedCategoryName.toUpperCase()}
@@ -139,7 +163,12 @@ function MenuDetailModal({
             </picture>
           )}
         </div>
-        <div className={`${styles.contentWrapper} ${!isSpecialCategory ? styles.requiredHeight : null}`}>
+
+        <div
+          className={`${styles.contentWrapper} ${
+            !isSpecialCategory ? styles.requiredHeight : null
+          }`}
+        >
           {featuredPictureUrl || featuredVideoUrl ? (
             <motion.div
               animate={{ opacity: showFeaturedSection ? 1 : 0 }}
@@ -157,11 +186,8 @@ function MenuDetailModal({
               {featuredVideoUrl ? (
                 <video
                   src={featuredVideoUrl}
-                  onCanPlay={(e) => {
-                    const videoElement = e.target as HTMLVideoElement;
-                    videoElement.play();
-                    setShowFeaturedSection(true);
-                  }}
+                  onCanPlay={playVideoHandler}
+                  onLoadedMetadata={(e) => playVideoHandler(e, true)}
                   controls={false}
                   loop={true}
                   muted
@@ -175,6 +201,7 @@ function MenuDetailModal({
               ) : null}
             </motion.div>
           ) : null}
+
           <div className={styles.itemsList}>
             {!isSpecialCategory ? (
               <img

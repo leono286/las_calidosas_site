@@ -19,10 +19,7 @@ function MainBackground({ hideTexture }: { hideTexture: boolean }) {
         alt=''
         width={0}
         height={0}
-        sizes='100vw'
-        onLoad={() => {
-          console.log('ready');
-        }}
+        sizes='100lvh'
       />
       {hideTexture ? null : (
         <motion.div

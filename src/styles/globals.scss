@@ -4,7 +4,7 @@
   // colors
   --brand-yellow: #ffdf05;
   --white: #fff;
-  --brand-background: #1C1C1C;
+  --brand-background: #1c1c1c;
   --black: #000;
   --dark-text: #292927;
   --light-text: #fafaf9;
@@ -19,6 +19,16 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+
+  /*FireFox*/
+  scrollbar-width: none;
+  /*IE10+*/
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+
+  &::-webkit-scrollbar {
+    /*Chrome, Safari, Edge*/
+    display: none;
+  }
 }
 
 html,

@@ -7,9 +7,23 @@ import { TypeWebsite } from '@/Types';
 import { createClient, Entry, EntryCollection } from 'contentful';
 import ContactUsPage from '@/components/ContactUsPage';
 import NavBar from '@/components/NavBar';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { NavBarItem } from '@/components/NavBar/NavBar';
 import { AnimatePresence, motion } from 'framer-motion';
+
+import background from '@/assets/background.jpg';
+import yellowBrushStroke from '@/assets/yellow-brush-stroke.png';
+import lasCalidosasLogo from '@/assets/logo-las-calidosas.png';
+import texture from '@/assets/textura.png';
+import useImagePreloader from '@/hooks/useImagePreloader';
+import LogoGreeting from '@/components/LogoGreeting';
+
+const preloadSrcList: string[] = [
+  yellowBrushStroke.src,
+  lasCalidosasLogo.src,
+  texture.src,
+  background.src,
+];
 
 export async function getStaticProps() {
   const client = createClient({
@@ -26,6 +40,7 @@ export async function getStaticProps() {
 }
 
 export default function Home(props: TypeWebsite) {
+  const { imagesPreloaded } = useImagePreloader(preloadSrcList);
   const { menu, footer } = props.fields;
   const heroPageRef = useRef<HTMLDivElement>(null);
   const menuPageRef = useRef<HTMLDivElement>(null);
@@ -33,7 +48,19 @@ export default function Home(props: TypeWebsite) {
   const [activeSection, setActiveSection] =
     useState<NavBarItem['label']>('Inicio');
 
-  const [hideContent, setHideContent] = useState(false);
+  const [showBackground, setShowBackground] = useState(false);
+  const [hideLogo, setHideLogo] = useState(false);
+  const [hideContent, setHideContent] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setShowBackground(true);
+    }, 200);
+    setTimeout(() => {
+      setHideLogo(true);
+      setHideContent(false);
+    }, 2000);
+  }, [imagesPreloaded]);
 
   const handlNavBarItemSelected = (selectedItem: NavBarItem['label']) => {
     let targetRef = null;
@@ -58,8 +85,6 @@ export default function Home(props: TypeWebsite) {
     }
   };
 
-  console.log(menu);
-
   return (
     <>
       <Head>
@@ -72,48 +97,90 @@ export default function Home(props: TypeWebsite) {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
+      {/* <AnimatePresence> */}
       <div className={styles.content}>
         {/* <button
           style={{ position: 'absolute', zIndex: 20 }}
-          onClick={() => setHideContent(!hideContent)}
+          onClick={() => setHideLogo(!hideLogo)}
         >
           test
         </button> */}
-        <MainBackground hideTexture={hideContent}/>
+        <motion.div
+          initial={{ scale: 0.05, y: '50vh' }}
+          animate={{
+            scale: showBackground ? 1 : 0.05,
+            y: showBackground ? 0 : '50vh',
+          }}
+          transition={{
+            type: 'spring',
+            bounce: showBackground ? 0.48 : 0,
+            duration: showBackground ? 0.8 : 0.5,
+          }}
+          style={{ transformOrigin: 'center center' }}
+        >
+          <MainBackground hideTexture={hideContent} />
+        </motion.div>
         <AnimatePresence>
-          {!hideContent ? (
+          {hideLogo ? null : (
             <motion.div
-              // initial={false}
-              animate={{
-                opacity: hideContent ? 0 : 1,
-                y: hideContent ? '20%' : 0,
+              initial={false}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4 }}
+              style={{
+                position: 'fixed',
+                inset: 0,
+                display: 'grid',
+                placeItems: 'center',
               }}
-              exit={{ opacity: 0, y: '20%' }}
-              transition={{duration: 0.3}}
             >
-              <HeroSection ref={heroPageRef} onSlideIn={setActiveSection} />
-              {menu ? (
-                <MenuPage
-                  menu={menu}
-                  ref={menuPageRef}
-                  onSlideIn={setActiveSection}
-                />
-              ) : null}
-              {footer ? (
-                <ContactUsPage
-                  footerData={footer}
-                  ref={contactUsPageRef}
-                  onSlideIn={setActiveSection}
-                />
-              ) : null}
+              <LogoGreeting />
             </motion.div>
-          ) : null}
+          )}
         </AnimatePresence>
+        {!hideContent ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            // initial={false}
+            animate={{
+              opacity: hideContent ? 0 : 1,
+              y: hideContent ? '20%' : 0,
+            }}
+            // exit={{ opacity: 0, y: '20%' }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <HeroSection ref={heroPageRef} onSlideIn={setActiveSection} />
+            {menu ? (
+              <MenuPage
+                menu={menu}
+                ref={menuPageRef}
+                onSlideIn={setActiveSection}
+              />
+            ) : null}
+            {footer ? (
+              <ContactUsPage
+                footerData={footer}
+                ref={contactUsPageRef}
+                onSlideIn={setActiveSection}
+              />
+            ) : null}
+          </motion.div>
+        ) : null}
       </div>
-      <NavBar
-        activeSection={activeSection}
-        onItemClick={handlNavBarItemSelected}
-      />
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{
+          opacity: hideContent ? 0 : 1,
+          y: hideContent ? '20%' : 0,
+        }}
+        // exit={{ opacity: 0, y: '20%' }}
+        transition={{ duration: 0.3 }}
+      >
+        <NavBar
+          activeSection={activeSection}
+          onItemClick={handlNavBarItemSelected}
+        />
+      </motion.div>
+      {/* </AnimatePresence> */}
     </>
   );
 }

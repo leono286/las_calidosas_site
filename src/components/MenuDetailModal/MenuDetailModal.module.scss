@@ -107,11 +107,11 @@ $bottom-gradient-height: 160px;
     @include bp('small') {
       padding-inline: 8%;
     }
+    @include bp('small') {
+      padding-inline: 4%;
+    }
     @include bp('large') {
-      padding-inline: max(
-        32px,
-        calc((100% - 1200px) / 2)
-      ); //TODDO: THis is not required when we add the slider. REMOVE
+      padding-inline: 8%;
     }
   }
 
@@ -123,6 +123,12 @@ $bottom-gradient-height: 160px;
       flex-direction: row;
       gap: 32px;
     }
+
+    &.requiredHeight {
+      @include bp('medium') {
+        min-height: calc(100% - #{$bottom-gradient-height});
+      }
+    }
   }
 
   .title {
@@ -132,6 +138,13 @@ $bottom-gradient-height: 160px;
     @include bp('small') {
       margin-block: 32px;
     }
+
+    &.noMarginMedium {
+      @include bp('medium') {
+        margin-block: 0;
+      }
+    }
+
     img {
       height: 100%;
       max-width: 100%;
@@ -157,40 +170,51 @@ $bottom-gradient-height: 160px;
       aspect-ratio: 0.866;
       flex-basis: 42%;
       flex-shrink: 0;
+      display: flex;
+      margin-top: 36px;
+    }
+
+    %media-styles {
+      width: 100%;
+      object-fit: cover;
+      max-width: 100%;
+      max-height: 100%;
+      object-position: center var(--customBottomPos);
+      border-radius: 5px;
+
+      @include bp('medium') {
+        max-height: calc(100vh - 260px);
+        position: sticky;
+        top: 36px;
+      }
     }
 
     &.isVideo {
       video {
-        width: 100%;
-        object-fit: cover;
-        max-width: 100%;
-        max-height: 100%;
-        object-position: center 84%;
-        border-radius: 5px;
-
-        @include bp('medium') {
-          max-height: calc(100vh - 220px);
-          position: sticky;
-          top: 20px;
-        }
+        @extend %media-styles;
       }
     }
 
     &.isImage {
       img {
-        width: 100%;
-        object-fit: cover;
-        max-width: 100%;
-        max-height: 100%;
-        object-position: center 84%;
-        border-radius: 5px;
+        @extend %media-styles;
       }
     }
   }
 
   .itemsList {
-    padding-bottom: $bottom-gradient-height;
+    padding-bottom: $bottom-gradient-height - 20px;
     flex-grow: 1;
+    margin-top: 48px;
+
+    @include bp('medium') {
+      margin-top: 20px;
+      align-self: center;
+    }
+
+    .titleInColumn {
+      max-width: 100%;
+    }
   }
 
   .buttonGradient {
@@ -212,7 +236,7 @@ $bottom-gradient-height: 160px;
       padding-inline: calc(8% + 20px);
     }
     @include bp('large') {
-      padding-inline: calc(max(32px, calc((100% - 1200px) / 2)) + 20px);
+      padding-inline: calc(max(32px, 8%) + 20px);
     }
 
     .backButton {
@@ -292,6 +316,19 @@ $bottom-gradient-height: 160px;
       p {
         font-family: var(--dorchester-display-font);
         letter-spacing: 1.1px;
+        font-size: 34px;
+
+        &::first-letter {
+          font-size: 40px;
+        }
+
+        @include bp('small') {
+          font-size: 52px;
+          
+          &::first-letter {
+            font-size: 60px;
+          }
+        }
       }
     }
 

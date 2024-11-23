@@ -40,22 +40,22 @@ export default function App({ Component, pageProps }: AppProps) {
   const [showLogo, setShowLogo] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const alreadyShown = window.sessionStorage.getItem('logoShown');
-    if (alreadyShown === null) {
-      setShowLogo(true);
-      window.sessionStorage.setItem('logoShown', 'true');
-    }
-    setIsLoading(false);
-  }, []);
+  // useEffect(() => {
+  //   const alreadyShown = window.sessionStorage.getItem('logoShown');
+  //   // if (alreadyShown === null) {
+  //     setShowLogo(true);
+  //     window.sessionStorage.setItem('logoShown', 'true');
+  //   // }
+  //   setIsLoading(false);
+  // }, []);
 
-  useEffect(() => {
-    if (showLogo && !isLoading) {
-      setTimeout(() => {
-        setShowLogo(false);
-      }, 1200);
-    }
-  }, [isLoading, showLogo]);
+  // useEffect(() => {
+  //   if (showLogo && !isLoading) {
+  //     setTimeout(() => {
+  //       setShowLogo(false);
+  //     }, 120000);
+  //   }
+  // }, [isLoading, showLogo]);
 
   return (
     <>
@@ -117,11 +117,11 @@ export default function App({ Component, pageProps }: AppProps) {
         `
             : ''}
         </style>
-        {isLoading ? null : showLogo ? (
-          <LogoGreeting />
-        ) : (
+        {/* {isLoading ? null : showLogo ? ( */}
+          {/* <LogoGreeting /> */}
+        {/* ) : ( */}
           <Component {...pageProps} />
-        )}
+        {/* )} */}
       </main>
     </>
   );

@@ -35,11 +35,6 @@ const HeroSection = forwardRef<
         observer.unobserve(sectionRef.current);
       }
     };
-
-
-  // window.addEventListener("devicemotion", handleMotion, true);
-
-
   }, []);
 
   return (

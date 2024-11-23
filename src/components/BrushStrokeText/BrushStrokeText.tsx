@@ -1,5 +1,4 @@
 import styles from './BrushStrokeText.module.scss';
-import yellowBrushStroke from '@/assets/yellow-brush-stroke.png';
 
 interface Props extends React.HTMLProps<HTMLDivElement> {
   color?: 'yellow' | 'white' | 'black';

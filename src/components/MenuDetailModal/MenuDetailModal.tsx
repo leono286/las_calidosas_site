@@ -7,13 +7,20 @@ import MenuIconSVG from '@/assets/svg/forkKnifeIcon.svg';
 import CaretRight from '@/assets/svg/caret_right.svg';
 import styles from './MenuDetailModal.module.scss';
 import BrushStrokeText from '../BrushStrokeText';
-import { useEffect, useRef, useState } from 'react';
+import { CSSProperties, useEffect, useRef, useState } from 'react';
 
 const breakpoints = [
-  // {media: "(min-width: 992px)", size: "medium"},
   { media: '(min-width: 767px)', size: 'small' },
   { media: '(min-width: 0px)', size: 'xsmall' },
 ];
+
+const mediaBottomPos: { [key: string]: string } = {
+  hamburguesas: '74%',
+  perros: '50%',
+  salchipapas: '30%',
+  maicitos: '33%',
+  otrasdelicias: '27%',
+};
 
 function MenuDetailModal({
   seletedCategory,
@@ -108,7 +115,7 @@ function MenuDetailModal({
         </div>
       </div>
       <div className={styles.content} ref={contentDivRef}>
-        <div className={styles.title}>
+        <div className={`${styles.title} ${!isSpecialCategory ? styles.noMarginMedium : null}` }>
           {isSpecialCategory ? (
             <BrushStrokeText
               text={selectedCategoryName.toUpperCase()}
@@ -127,11 +134,12 @@ function MenuDetailModal({
               <img
                 src={`/images/categoryTitles/xsmall/${titleImgName}.png`}
                 alt={`categoría ${selectedCategoryName}`}
+                className='hide-on-medium'
               />
             </picture>
           )}
         </div>
-        <div className={styles.contentWrapper}>
+        <div className={`${styles.contentWrapper} ${!isSpecialCategory ? styles.requiredHeight : null}`}>
           {featuredPictureUrl || featuredVideoUrl ? (
             <motion.div
               animate={{ opacity: showFeaturedSection ? 1 : 0 }}
@@ -140,6 +148,11 @@ function MenuDetailModal({
               className={`${styles.featured} ${
                 featuredVideoUrl ? styles.isVideo : null
               } ${featuredPictureUrl ? styles.isImage : null}`}
+              style={
+                {
+                  '--customBottomPos': mediaBottomPos[titleImgName] ?? '84%',
+                } as CSSProperties
+              }
             >
               {featuredVideoUrl ? (
                 <video
@@ -152,6 +165,7 @@ function MenuDetailModal({
                   controls={false}
                   loop={true}
                   muted
+                  playsInline
                 />
               ) : featuredPictureUrl ? (
                 <img
@@ -162,6 +176,14 @@ function MenuDetailModal({
             </motion.div>
           ) : null}
           <div className={styles.itemsList}>
+            {!isSpecialCategory ? (
+              <img
+                src={`/images/categoryTitles/small/${titleImgName}.png`}
+                alt={`categoría ${selectedCategoryName}`}
+                className={`hide-on-xsmall show-on-medium ${styles.titleInColumn}`}
+              />
+            ) : null}
+
             {seletedCategory.fields.products.map((product) => (
               <MenuItem
                 key={product.sys.id}

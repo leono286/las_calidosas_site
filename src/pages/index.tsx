@@ -59,7 +59,7 @@ export default function Home(props: TypeWebsite) {
     setTimeout(() => {
       setHideLogo(true);
       setHideContent(false);
-    }, 2000);
+    }, 1500);
   }, [imagesPreloaded]);
 
   const handlNavBarItemSelected = (selectedItem: NavBarItem['label']) => {
@@ -97,14 +97,7 @@ export default function Home(props: TypeWebsite) {
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      {/* <AnimatePresence> */}
       <div className={styles.content}>
-        {/* <button
-          style={{ position: 'absolute', zIndex: 20 }}
-          onClick={() => setHideLogo(!hideLogo)}
-        >
-          test
-        </button> */}
         <motion.div
           initial={{ scale: 0.05, y: '50vh' }}
           animate={{
@@ -140,12 +133,10 @@ export default function Home(props: TypeWebsite) {
         {!hideContent ? (
           <motion.div
             initial={{ opacity: 0 }}
-            // initial={false}
             animate={{
               opacity: hideContent ? 0 : 1,
               y: hideContent ? '20%' : 0,
             }}
-            // exit={{ opacity: 0, y: '20%' }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <HeroSection ref={heroPageRef} onSlideIn={setActiveSection} />
@@ -172,7 +163,6 @@ export default function Home(props: TypeWebsite) {
           opacity: hideContent ? 0 : 1,
           y: hideContent ? '20%' : 0,
         }}
-        // exit={{ opacity: 0, y: '20%' }}
         transition={{ duration: 0.3 }}
       >
         <NavBar
@@ -180,7 +170,6 @@ export default function Home(props: TypeWebsite) {
           onItemClick={handlNavBarItemSelected}
         />
       </motion.div>
-      {/* </AnimatePresence> */}
     </>
   );
 }

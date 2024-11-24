@@ -1,0 +1,32 @@
+@import '../../styles/mixins';
+
+.container {
+  @include full-screen-container;
+  background-color: var(--content-overlay);
+}
+
+.contentWrapper {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+}
+
+.content {
+  width: 100%;
+  margin: 0 auto;
+  padding-inline: 20px;
+
+  @include bp('small') {
+    max-width: min(84%, 1200px);
+    padding-inline: 0px;
+  }
+
+  @include bp('medium') {
+    max-width: min(92%, 1200px);
+  }
+
+  @include bp('large') {
+    max-width: min(80%, 1200px);
+  }
+
+}

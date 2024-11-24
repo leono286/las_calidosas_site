@@ -1,0 +1,100 @@
+@import '../../styles/mixins';
+
+.container {
+  @include full-screen-container;
+  padding-top: 1px;
+}
+
+.logo {
+  position: relative;
+  z-index: 2;
+  width: 260px;
+  aspect-ratio: 4.3863;
+  margin: 44px auto 0;
+  display: block;
+
+  @include bp('small') {
+    width: 360px;
+    margin-top: 55px;
+  }
+
+  @include bp('large') {
+    width: 300px;
+    margin-top: 62px;
+    margin-left: 56px;
+  }
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  margin-top: 40px;
+
+  @include bp('small') {
+    margin-top: 96px;
+  }
+  @include bp('large') {
+    margin-top: 40px;
+  }
+}
+
+.instructions {
+  width: 340px;
+  margin: 28px auto 0;
+
+  @include bp('small') {
+    width: 540px;
+    margin-top: 40px;
+  }
+
+  p {
+    margin-top: 12px;
+    font-family: var(--helvetica-font);
+    font-size: 26px;
+    line-height: 29px;
+    letter-spacing: -0.25px;
+    font-weight: 400;
+    color: var(--light-text);
+    text-align: center;
+    font-style: italic;
+    text-shadow: 0px 0px 10px #000000e9, 0px 4px 10px #000000e9,
+      -1px -3px 10px #000000e9;
+
+    @include bp('small') {
+      font-size: 38px;
+      line-height: 42px;
+      margin-top: 24px;
+    }
+
+    span {
+      color: var(--brand-yellow);
+    }
+  }
+}
+
+.socialNetworks {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin: 26px auto 0;
+
+   @include bp('small') {
+    margin-top: 40px;
+  }
+
+  svg {
+    width: 48px;
+    aspect-ratio: 1;
+  }
+}
+
+.blendOut {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 24%;
+  background: linear-gradient(180deg, transparent 0%, var(--content-overlay-hero) 96%);
+  z-index: 1;
+}

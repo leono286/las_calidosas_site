@@ -1,11 +1,15 @@
-@import "mixins";
+@import 'mixins';
 
 :root {
   // colors
   --brand-yellow: #ffdf05;
   --white: #fff;
-  --brand-background: #111011;
+  --brand-background: #1c1c1c;
   --black: #000;
+  --dark-text: #292927;
+  --light-text: #fafaf9;
+  --content-overlay-hero: #1c1c1cbf;
+  --content-overlay: #1c1c1ccc;
 
   --max-width: 1100px;
   --border-radius: 12px;
@@ -15,6 +19,16 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+
+  /*FireFox*/
+  scrollbar-width: none;
+  /*IE10+*/
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+
+  &::-webkit-scrollbar {
+    /*Chrome, Safari, Edge*/
+    display: none;
+  }
 }
 
 html,
@@ -26,30 +40,51 @@ body {
 body {
   color: var(--white);
   background-color: var(--brand-background);
-
-  main {
-    padding: 20px;
-    padding-bottom: 40px;
-    min-height: 100vh;
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-
-    @include bp('small') {
-      padding: 40px;
-      padding-bottom: 60px;
-    }
-
-    @include bp('medium') {
-      padding: 40px 80px;
-      padding-bottom: 80px;
-    }
-  }
 }
 
 a {
   color: inherit;
   text-decoration: none;
+}
+
+.hide-on-xsmall {
+  display: none !important;
+}
+
+.hide-on-small {
+  @include bp('small') {
+    display: none !important;
+  }
+}
+
+.hide-on-medium {
+  @include bp('medium') {
+    display: none !important;
+  }
+}
+
+.hide-on-large {
+  @include bp('large') {
+    display: none !important;
+  }
+}
+
+.show-on-small {
+  @include bp('small') {
+    display: inherit !important;
+  }
+}
+
+.show-on-medium {
+  @include bp('medium') {
+    display: inherit !important;
+  }
+}
+
+.show-on-large {
+  @include bp('large') {
+    display: inherit !important;
+  }
 }
 
 @media (prefers-color-scheme: dark) {

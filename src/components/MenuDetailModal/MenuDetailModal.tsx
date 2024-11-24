@@ -197,6 +197,7 @@ function MenuDetailModal({
                 <img
                   src={featuredPictureUrl}
                   onLoad={() => setShowFeaturedSection(true)}
+                  onLoadedMetadata={() => setShowFeaturedSection(true)}
                 />
               ) : null}
             </motion.div>

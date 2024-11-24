@@ -88,7 +88,7 @@ const MenuPage = forwardRef<
         <PageGradient />
 
         <div className={styles.contentWrapper}>
-          <CustomMarquee text={'MENU'} />
+          <CustomMarquee text={'MENÚ'} />
 
           <div className={styles.content}>
             {sliderItems?.length ? (

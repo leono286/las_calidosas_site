@@ -51,6 +51,23 @@ export default function Home(props: TypeWebsite) {
   const [showBackground, setShowBackground] = useState(false);
   const [hideLogo, setHideLogo] = useState(false);
   const [hideContent, setHideContent] = useState(true);
+  const PWAHandlerFlag = useRef(false);
+
+  useEffect(() => {
+    const isPWAStandalone = window.matchMedia(
+      '(display-mode: standalone)',
+    ).matches;
+
+    if (isPWAStandalone && !PWAHandlerFlag.current) {
+      history.pushState(null, '', location.href); // Push new history entry to stack
+      history.back(); // Back to pevious page
+      history.forward(); // Forward to next page
+      window.addEventListener('popstate', () => {
+        history.go(1);
+      });
+      PWAHandlerFlag.current = true;
+    }
+  }, []);
 
   useEffect(() => {
     setTimeout(() => {

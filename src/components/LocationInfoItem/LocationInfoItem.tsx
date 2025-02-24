@@ -1,8 +1,6 @@
 import { TypeLocation } from '@/Types';
 import styles from './LocationInfoItem.module.scss';
-import {
-  MdOutlineLocationOn,
-} from 'react-icons/md';
+import { MdOutlineLocationOn } from 'react-icons/md';
 import MenuIconSVG from '@/assets/svg/forkKnifeIcon.svg';
 import ShoppingBagSVG from '@/assets/svg/shoppingBagIcon.svg';
 import { FaCaretDown, FaWhatsapp } from 'react-icons/fa';
@@ -20,7 +18,8 @@ type WeekDay =
 type OpenHours = Partial<{ [key in WeekDay]: string }>[];
 
 function LocationInfoItem({ location }: { location: TypeLocation }) {
-  const { address, phone, serviceType, openHours, mapsLink } = location.fields;
+  const { address, phone, phone2, serviceType, openHours, mapsLink } =
+    location.fields;
 
   const typedOpenHours = openHours as OpenHours;
 
@@ -29,7 +28,13 @@ function LocationInfoItem({ location }: { location: TypeLocation }) {
 
   const addressToShow = address.split(',');
 
-  const phoneNumberForLink = phone.replace(/-/g, '').replace(/ /g, '').replace(/[()]/g, '');
+  const phoneNumberForLink = phone
+    .replace(/-/g, '')
+    .replace(/ /g, '')
+    .replace(/[()]/g, '');
+  const phoneNumberForLink2 = phone2
+    ? phone.replace(/-/g, '').replace(/ /g, '').replace(/[()]/g, '')
+    : undefined;
 
   useEffect(() => {
     const date = new Date();
@@ -70,6 +75,17 @@ function LocationInfoItem({ location }: { location: TypeLocation }) {
           <FaWhatsapp /> {phone}
         </a>
       </p>
+      {phoneNumberForLink2 ? (
+        <p className={styles.phone}>
+          <a
+            href={`https://wa.me/1${phoneNumberForLink2}`}
+            rel='noreferrer'
+            target='_blank'
+          >
+            <FaWhatsapp /> {phone2}
+          </a>
+        </p>
+      ) : null}
       {typedOpenHours && currentDayIndex !== undefined ? (
         <div className={styles.openHours}>
           <div onClick={() => setHoursCollapsed(!hoursCollapsed)}>

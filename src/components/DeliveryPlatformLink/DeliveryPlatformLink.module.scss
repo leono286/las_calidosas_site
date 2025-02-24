@@ -1,9 +1,8 @@
 @import '../../styles/mixins';
 
 .box {
-  min-width: 52px;
-  max-width: 90px;
-  aspect-ratio: 1;
+  max-width: 114px;
+  height: 64px;
   width: 64%;
   background-color: var(--bg-color);
   border-radius: 5px;

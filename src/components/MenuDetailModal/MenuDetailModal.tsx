@@ -26,6 +26,11 @@ const mediaBottomPos: { [key: string]: string } = {
   salchipapas: '30%',
   maicitos: '33%',
   otrasdelicias: '27%',
+  kids: '24%',
+};
+
+const mediaLeftPos: { [key: string]: string } = {
+  kids: '40%',
 };
 
 function MenuDetailModal({
@@ -59,6 +64,16 @@ function MenuDetailModal({
     seletedCategory.fields.pictureSlider?.fields.items?.[0].fields.image.fields
       .file.url;
 
+  useEffect(() => {
+    history.pushState(null, '', document.URL);
+    window.addEventListener('popstate', function () {
+      history.pushState(null, '', document.URL);
+      setTimeout(() => {
+        onClose();
+      }, 100);
+    });
+  }, []);
+
   const onAnimationCompleteHandler = (e: { x: number | string }) => {
     if (e.x === 0 && localNavRef.current) {
       const activeElement = localNavRef.current.querySelector(
@@ -85,6 +100,12 @@ function MenuDetailModal({
     }
 
     setShowFeaturedSection(false);
+
+    setTimeout(() => {
+      if (!showFeaturedSection) {
+        setShowFeaturedSection(true);
+      }
+    }, 800);
   }, [seletedCategory]);
 
   const playVideoHandler = (
@@ -180,6 +201,7 @@ function MenuDetailModal({
               style={
                 {
                   '--customBottomPos': mediaBottomPos[titleImgName] ?? '84%',
+                  '--customLeftPos': mediaLeftPos[titleImgName] ?? '18%',
                 } as CSSProperties
               }
             >

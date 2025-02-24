@@ -1,4 +1,4 @@
-%conntent-style {
+%content-style {
   font-size: 16px;
   line-height: 18px;
   color: var(--light-text);
@@ -46,8 +46,8 @@
 }
 
 .phone {
-  @extend %conntent-style;
-  margin-top: 4px;
+  @extend %content-style;
+  margin-top: 8px;
   text-decoration: underline;
 
   svg {
@@ -57,7 +57,7 @@
 }
 
 .openHours {
-  @extend %conntent-style;
+  @extend %content-style;
   margin-top: 8px;
 
   .todayHours {
@@ -99,7 +99,7 @@
 }
 
 .mapsLink {
-  @extend %conntent-style;
+  @extend %content-style;
   margin-top: 4px;
   text-decoration: underline;
   font-weight: 700;

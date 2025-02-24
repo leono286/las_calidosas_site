@@ -28,6 +28,7 @@ export type TypeFooterNewSite = Entry<TypeFooterNewSiteFields>;
 export interface TypeLocationFields {
   address: EntryFields.Symbol;
   phone: EntryFields.Symbol;
+  phone2?: EntryFields.Symbol;
   serviceType: ('dine-in' | 'take-out')[];
   openHours: EntryFields.Object;
   mapsLink: EntryFields.Symbol;

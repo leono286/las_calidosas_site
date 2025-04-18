@@ -34,12 +34,12 @@ const mediaLeftPos: { [key: string]: string } = {
 };
 
 function MenuDetailModal({
-  seletedCategory,
+  selectedCategory,
   categories,
   onClose,
   onCategoryChange,
 }: {
-  seletedCategory: Entry<TypeMenuCategoryFields>;
+  selectedCategory: Entry<TypeMenuCategoryFields>;
   categories: Entry<TypeMenuCategoryFields>[];
   onClose: () => void;
   onCategoryChange: (selectedCategory: Entry<TypeMenuCategoryFields>) => void;
@@ -48,7 +48,7 @@ function MenuDetailModal({
 
   const localNavRef = useRef<HTMLDivElement>(null);
 
-  const selectedCategoryName = seletedCategory.fields.name;
+  const selectedCategoryName = selectedCategory.fields.name;
 
   const [showFeaturedSection, setShowFeaturedSection] = useState(false);
 
@@ -59,9 +59,9 @@ function MenuDetailModal({
   const titleImgName = selectedCategoryName.toLowerCase().replace(/ /g, '');
 
   const featuredVideoUrl =
-    seletedCategory.fields.videoShowcase?.fields.file.url;
+    selectedCategory.fields.videoShowcase?.fields.file.url;
   const featuredPictureUrl =
-    seletedCategory.fields.pictureSlider?.fields.items?.[0].fields.image.fields
+    selectedCategory.fields.pictureSlider?.fields.items?.[0].fields.image.fields
       .file.url;
 
   useEffect(() => {
@@ -106,7 +106,7 @@ function MenuDetailModal({
         setShowFeaturedSection(true);
       }
     }, 800);
-  }, [seletedCategory]);
+  }, [selectedCategory]);
 
   const playVideoHandler = (
     e: SyntheticEvent<HTMLVideoElement, Event>,
@@ -193,8 +193,7 @@ function MenuDetailModal({
           {featuredPictureUrl || featuredVideoUrl ? (
             <motion.div
               animate={{ opacity: showFeaturedSection ? 1 : 0 }}
-              initial={{ opacity: 0 }}
-              transition={{ duration: showFeaturedSection ? 0.4 : 0 }}
+              transition={{ duration: 0.3 }}
               className={`${styles.featured} ${
                 featuredVideoUrl ? styles.isVideo : null
               } ${featuredPictureUrl ? styles.isImage : null}`}
@@ -234,7 +233,7 @@ function MenuDetailModal({
               />
             ) : null}
 
-            {seletedCategory.fields.products.map((product) => (
+            {selectedCategory.fields.products.map((product) => (
               <MenuItem
                 key={product.sys.id}
                 item={{ ...product, darkText: isSpecialCategory }}

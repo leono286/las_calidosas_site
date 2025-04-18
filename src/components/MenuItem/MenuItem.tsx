@@ -3,7 +3,11 @@ import PriceTagSVG from '@/assets/svg/white_tag.svg';
 import styles from './MenuItem.module.scss';
 import NewBadge from '../NewBadge';
 
-function MenuItem({ item }: { item: TypeMenuItem & { updatePrice?: string, darkText?: boolean } }) {
+function MenuItem({
+  item,
+}: {
+  item: TypeMenuItem & { updatePrice?: string; darkText?: boolean };
+}) {
   const { updatePrice, darkText, fields } = item;
   const {
     name,
@@ -14,7 +18,7 @@ function MenuItem({ item }: { item: TypeMenuItem & { updatePrice?: string, darkT
     isNew,
   } = fields;
 
-  const isListOfItems = listOfItems?.length;
+  const hasExtraItems = listOfItems?.length;
 
   const priceUpdated = updatePrice
     ? Math.ceil(price + price * parseFloat(updatePrice))
@@ -25,35 +29,18 @@ function MenuItem({ item }: { item: TypeMenuItem & { updatePrice?: string, darkT
 
   return (
     <section
-      className={`${styles.menuItem} ${isListOfItems ? 'list-of-items' : ''} ${darkText ? styles.darkText : ''}`}
+      className={`${styles.menuItem} ${darkText ? styles.darkText : ''}`}
     >
-      {isListOfItems ? (
-        <>
-          {/* <div className={`${styles.listOfItems}`}>
-          {listOfItems.map((item, index) => {
-            const [label, smallLabel] = item.split('(');
-
-            return (
-              <span className='product' key={index}>
-                {label.trim()}
-                {smallLabel ? <small>{` (${smallLabel.trim()}`}</small> : null}
-              </span>
-            );
-          })}
-        </div> */}
-        </>
-      ) : (
-        <div className={styles.firstRow}>
-          <div className={`${styles.menuItemName}`}>
-            {name}
-            {isNew ? <NewBadge /> : null}
-          </div>
-          <div className={`${styles.menuItemPrice} hide-on-medium`}>
-            <PriceTagSVG />
-            <span>${priceToDisplay}</span>
-          </div>
+      <div className={styles.firstRow}>
+        <div className={`${styles.menuItemName}`}>
+          {name}
+          {isNew ? <NewBadge /> : null}
         </div>
-      )}
+        <div className={`${styles.menuItemPrice} hide-on-medium`}>
+          <PriceTagSVG />
+          <span>${priceToDisplay}</span>
+        </div>
+      </div>
       <div className={styles.secondRow}>
         {spanishDescription || englishDescription ? (
           <div className={styles.menuItemDescription}>
@@ -72,6 +59,13 @@ function MenuItem({ item }: { item: TypeMenuItem & { updatePrice?: string, darkT
           <span>${priceToDisplay}</span>
         </div>
       </div>
+      {hasExtraItems ? (
+        <div className={styles.extraItems}>
+          {listOfItems.map((item) => (
+            <span className={styles.item} key={item}>{item.toUpperCase()}</span>
+          ))}
+        </div>
+      ) : null}
     </section>
   );
 }

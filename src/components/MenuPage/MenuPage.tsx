@@ -117,7 +117,7 @@ const MenuPage = forwardRef<
       <AnimatePresence>
         {showMenuDetail ? (
           <MenuDetailModal
-            seletedCategory={selectedCategory!}
+            selectedCategory={selectedCategory!}
             onClose={handleHideMenu}
             categories={categories}
             onCategoryChange={(category) => setSelectedCategory(category)}

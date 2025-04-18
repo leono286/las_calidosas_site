@@ -35,30 +35,28 @@
     position: relative;
   }
 
-  // .listOfItems {
-  //   font-family: var(--dorchester-display-font);
-  //   color: var(--brand-yellow);
-  //   font-size: 2.2rem;
-  //   line-height: 1.8rem;
-  //   display: flex;
-  //   justify-content: flex-start;
-  //   gap: 0.5rem 1.6rem;
-  //   flex: 1 1 100%;
-  //   letter-spacing: 0.02rem;
-  //   flex-wrap: wrap;
+  .extraItems {
+    display: flex;
+    justify-content: flex-start;
+    gap: 16px 32px;
+    flex: 1 1 100%;
+    flex-wrap: wrap;
+    margin-block: 26px 40px;
 
-  //   [class~=product] {
-  //     display: flex;
-  //     flex-direction: column;
-  //     justify-content: flex-start;
-  //     align-items: flex-end;
+    .item {
+      --font-size: 22px;
 
-  //     small {
-  //       font-size: 0.6em;
-  //       margin-top: -2px;
-  //     }
-  //   }
-  // }
+      font-family: var(--dorchester-display-font);
+      // font-family: var(--lato-font);
+      letter-spacing: 1.2px;
+      font-size: var(--font-size);
+      color: var(--brand-yellow);
+
+      &::first-letter {
+        font-size: 1.2em;
+      }
+    }
+  }
 
   .menuItemPrice {
     position: relative;
